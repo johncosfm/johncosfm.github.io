@@ -94,6 +94,162 @@ var traceData = {
 			maxs : {x: 127, y: 160},
 			closeup : false,
 		},
+		env__gas_station_int_base : {
+			points : [
+				{x: 591, y: 759},
+				{x:  44, y: 370},
+				{x: 231, y: 236},
+				{x: 227, y: 216},
+				{x: 242, y: 204},
+				{x: 320, y: 253},
+				{x: 364, y: 226},
+				{x: 488, y: 314},
+				{x: 522, y: 320},
+				{x: 567, y: 350},
+				{x: 586, y: 355},
+				{x: 634, y: 394},
+				{x: 652, y: 392},
+				{x: 832, y: 521},
+				{x: 841, y: 522},
+				{x: 868, y: 504},
+				{x: 914, y: 534},
+				{x: 592, y: 759},
+				{x: 592, y: 991},
+				{x:1141, y: 991},
+				{x:1141, y:-196},
+				{x:-159, y:-196},
+				{x:-159, y: 991},
+				{x: 591, y: 991},
+			],
+			mins : {x:-159, y:-196},
+			maxs : {x:1141, y: 991},
+			closeup : false,
+		},
+		env__gas_station_int_base_2 : {
+			points : [
+				{x: 522, y: 758},
+				{x: 674, y: 758},
+				{x: 674, y: 991},
+				{x: 522, y: 991},
+			],
+			mins : {x: 522, y: 758},
+			maxs : {x: 674, y: 991},
+			closeup : false,
+		},
+		env__gas_station_int_layer1 : {
+			points : [
+				{x: 264, y: 341},
+				{x: 340, y: 395},
+				{x: 339, y: 413},
+				{x: 371, y: 435},
+				{x: 395, y: 422},
+				{x: 398, y: 414},
+				{x: 450, y: 379},
+				{x: 337, y: 310},
+			],
+			mins : {x: 264, y: 310},
+			maxs : {x: 450, y: 435},
+			closeup : false,
+		},
+		env__gas_station_int_layer1_sort : {
+			points : [
+				{x: 275, y: 340},
+				{x: -30, y: 340},
+				{x: -30, y: -30},
+				{x: 945, y: -30},
+				{x: 945, y: 380},
+				{x: 438, y: 380},
+			],
+			mins : {x: -30, y: -30},
+			maxs : {x: 945, y: 380},
+			closeup : false,
+		},
+		env__gas_station_int_layer2 : {
+			points : [
+				{x: 134, y: 375},
+				{x: 134, y: 383},
+				{x: 156, y: 401},
+				{x: 161, y: 402},
+				{x: 254, y: 466},
+				{x: 226, y: 483},
+				{x: 268, y: 511},
+				{x: 295, y: 491},
+				{x: 295, y: 483},
+				{x: 345, y: 447},
+				{x: 345, y: 442},
+				{x: 197, y: 344},
+			],
+			mins : {x: 134, y: 344},
+			maxs : {x: 345, y: 511},
+			closeup : false,
+		},
+		env__gas_station_int_layer2_sort : {
+			points : [
+				{x: 140, y: 383},
+				{x: -30, y: 383},
+				{x: -30, y: -30},
+				{x: 945, y: -30},
+				{x: 945, y: 450},
+				{x: 330, y: 450},
+			],
+			mins : {x: -30, y: -30},
+			maxs : {x: 945, y: 450},
+			closeup : false,
+		},
+		env__gas_station_int_layer3 : {
+			points : [
+				{x: 472, y: 406},
+				{x: 805, y: 648},
+				{x: 866, y: 602},
+				{x: 527, y: 367},
+			],
+			mins : {x: 472, y: 406},
+			maxs : {x: 866, y: 648},
+			closeup : false,
+		},
+		env__gas_station_int_layer3_sort : {
+			points : [
+				{x: 491, y: 411},
+				{x: -30, y: 411},
+				{x: -30, y: -30},
+				{x: 945, y: -30},
+				{x: 945, y: 608},
+				{x: 824, y: 608},
+			],
+			mins : {x: -30, y: -30},
+			maxs : {x: 945, y: 608},
+			closeup : false,
+		},
+		env__gas_station_int_layer4 : {
+			points : [
+				{x: 349, y: 524},
+				{x: 349, y: 530},
+				{x: 465, y: 612},
+				{x: 453, y: 622},
+				{x: 489, y: 649},
+				{x: 558, y: 602},
+				{x: 584, y: 603},
+				{x: 585, y: 553},
+				{x: 562, y: 553},
+				{x: 432, y: 465},
+			],
+			mins : {x: 349, y: 465},
+			maxs : {x: 585, y: 649},
+			closeup : false,
+		},
+		env__gas_station_int_layer4_sort : {
+			points : [
+				{x: 362, y: 530},
+				{x: -30, y: 530},
+				{x: -30, y: -30},
+				{x: 945, y: -30},
+				{x: 945, y: 592},
+				{x: 576, y: 592},
+			],
+			mins : {x: -30, y: -30},
+			maxs : {x: 945, y: 592},
+			closeup : false,
+		},
 		closeup__carwreck_trunk__crowbar : {
 			points : [
 				{x: 119, y:  83},
@@ -202,7 +358,7 @@ var traceData = {
 }
 
 function globalCollisionTrace(pos) {
-	for (var i = 1, max = entData["entCount"]; i < max; i++) {
+	for (var i = 1, max = entData["entCount"] + 1; i < max; i++) {
 		if (traceEnt(pos, entData["entities"][i]["htmlElement"])) {return true;}
 	}
 	return false;
@@ -215,6 +371,7 @@ function traceEnt(pos, ent) {
 
 function traceEntHull(pos, ent, hull) {
 	hull = traceData["hulls"][hull];
+	if (!hull["closeup"] && ent.parentElement.id != worldsData["currentWorld"]) {return;}
 	var mins = traceConvertTexCoords(hull["mins"], ent, hull["closeup"]);
 	var maxs = traceConvertTexCoords(hull["maxs"], ent, hull["closeup"]);
 	if (pos["x"] < mins["x"] || pos["x"] > maxs["x"] || pos["y"] < mins["y"] || pos["y"] > maxs["y"]) {return false;}

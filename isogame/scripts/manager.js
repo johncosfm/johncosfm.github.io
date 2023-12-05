@@ -30,17 +30,24 @@ function Init() {
 //think functions
 var managerTimeLast = 0;
 function PerFrameThink(time) {
-	var deltaTime = (time - managerTimeLast) / 1000;
+	var deltaTime = ((time - managerTimeLast) / 1000) || 0;
 	managerTimeLast = time;
 	requestAnimationFrame(PerFrameThink);
 	
 	animUpdate();
 	soundUpdate(deltaTime);
 	sortUpdate();
+	worldsUpdate(deltaTime);
 	playerUpdate(deltaTime);
 	camUpdate();
 	carwreckUpdate(deltaTime);
 	gasstationUpdate(deltaTime);
+}
+
+function testSkip() {
+	setWorld("overworld");
+	playerData["hasCrowbar"] = true;
+	gasstationData["doorLocked"] = false;
 }
 
 //dont let the user break the carefully crafted listening experience with the media keys

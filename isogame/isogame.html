@@ -53,6 +53,12 @@ div#splashscreen {
     -webkit-text-stroke: 0.4px black;
 	text-align: center;
 }
+div#screenfade {
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
 </style>
 <body onload="Precache()" onclick="StartGame()" id="body">
 	<div id="splashscreen">Click to start.</div>
@@ -63,14 +69,18 @@ div#splashscreen {
 			<div id="carwreck" data-origin_offsetx="173" data-origin_offsety="140" data-collision="env__carwreck"></div>
 			<div id="gasstation" data-origin_offsetx="777" data-origin_offsety="618" data-collision="env__gas_station"></div>
 			<div id="gasstation_door" data-sequence="env__gasstation_ext_door__anim_locked" data-origin_offsetx="100" data-origin_offsety="97"></div>
+			<div id="world">
+			</div>
 		</div>
-		<div id="shopfloor">
-			<div id="gasstation_int_base"></div>
-			<div id="gasstation_int_layer1"></div>
-			<div id="gasstation_int_layer2"></div>
-			<div id="gasstation_int_layer3"></div>
-			<div id="gasstation_int_layer4"></div>
+		<div id="shopfloor" style="display : none;">
+			<div id="gasstation_int_base" data-collision="env__gas_station_int_base"></div>
+			<div data-collision="env__gas_station_int_base_2"></div>
+			<div id="gasstation_int_layer1" data-collision="env__gas_station_int_layer1"></div>
+			<div id="gasstation_int_layer2" data-collision="env__gas_station_int_layer2"></div>
+			<div id="gasstation_int_layer3" data-collision="env__gas_station_int_layer3"></div>
+			<div id="gasstation_int_layer4" data-collision="env__gas_station_int_layer4"></div>
 		</div>
 	</div></div>
 	<div id="msg"></div>
+	<div id="screenfade"></div>
 </body>

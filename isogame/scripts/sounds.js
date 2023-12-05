@@ -225,7 +225,7 @@ function soundUpdate(deltaTime) {
 		if (!soundeventData["snd__ambient__ext_rand"]["next"]) {soundeventData["snd__ambient__ext_rand"]["next"] = CurTime() + getRandomInt(3,10);}
 		if (CurTime() > soundeventData["snd__ambient__ext_rand"]["next"]) {
 			playSoundEvent("snd__ambient__ext_rand");
-			soundeventData["snd__ambient__ext_rand"]["next"] = CurTime() + getRandomInt(10,40);
+			soundeventData["snd__ambient__ext_rand"]["next"] = CurTime() + getRandomInt(10,20);
 		}
 	}
 	
@@ -275,6 +275,24 @@ function soundUpdate(deltaTime) {
 	}
 }
 
+function soundStop() {
+	for (var asset in audioElements) {
+		audioElements[asset].pause();
+		audioElements[asset].currentTime = 0;
+	}
+	for (var i=0, max=Object.keys(soundeventData).length; i < max; i++) {
+		sndevt = Object.keys(soundeventData)[i];
+		if (soundeventData[sndevt]["htmlAudio"]) {
+			soundeventData[sndevt]["htmlAudio"].pause();
+			soundeventData[sndevt]["htmlAudio"].currentTime = 0;
+		}
+		if (soundeventData[sndevt]["htmlAudio2"]) {
+			soundeventData[sndevt]["htmlAudio2"].pause();
+			soundeventData[sndevt]["htmlAudio2"].currentTime = 0;
+		}
+	}
+}
+
 function playSoundEvent(sndevt) {
 	if (sndevt == "snd__player_step" && worldsData["currentWorld"] == "shopfloor") {
 		sndevt = "snd__player_step_tile";
@@ -306,6 +324,9 @@ function playSoundEvent(sndevt) {
 				soundeventData[sndevt]["htmlAudio"].volume = volume;
 			}
 			soundeventData[sndevt]["htmlAudio2"].volume = 0;
+			if (sndevt == "snd__ambient__int_music") {
+				soundeventData[sndevt]["htmlAudio"].currentTime = 48;
+			}
 			soundeventData[sndevt]["htmlAudio"].play();
 			soundeventData[sndevt]["activeHtmlAudio"] = 1;
 			soundeventData[sndevt]["activeBlend1"] = 1;

@@ -4,6 +4,11 @@ var gasstationData = {
 	elem : false,
 	textures : {
 		exterior : "assets/tex__env__gas_station.png",
+		int_base : "assets/tex__env__gasstation_int_base.png",
+		int_layer1:"assets/tex__env__gasstation_int_layer1.png",
+		int_layer2:"assets/tex__env__gasstation_int_layer2.png",
+		int_layer3:"assets/tex__env__gasstation_int_layer3.png",
+		int_layer4:"assets/tex__env__gasstation_int_layer4.png",
 	},
 	closeup : false,
 	closeupOpacity : 0,
@@ -14,16 +19,42 @@ var gasstationData = {
 
 function gasstationInit() {
 	gasstationData["elem"] = document.getElementById("gasstation");
-	gasstationData["doorElem"] = document.getElementById("gasstation_door");
 	gasstationData["elem"].style.backgroundImage = "url(\""+ gasstationData["textures"]["exterior"] +"\")";
 	gasstationData["elem"].style.width  = "1500px";
 	gasstationData["elem"].style.height = "1500px";
 	GetEntData(gasstationData["elem"])["origin"]["x"] = 7545;
 	GetEntData(gasstationData["elem"])["origin"]["y"] = 879;
 	UpdateEntOrigin(gasstationData["elem"]);
+	
+	gasstationData["doorElem"] = document.getElementById("gasstation_door");
 	GetEntData(gasstationData["doorElem"])["origin"]["x"] = 7682;
 	GetEntData(gasstationData["doorElem"])["origin"]["y"] = 1470;
 	UpdateEntOrigin(gasstationData["doorElem"]);
+	
+	gasstationData["gasstation_int_base"] = document.getElementById("gasstation_int_base");
+	gasstationData["gasstation_int_base"].style.backgroundImage = "url(\""+ gasstationData["textures"]["int_base"] +"\")";
+	gasstationData["gasstation_int_base"].style.width  = "928px";
+	gasstationData["gasstation_int_base"].style.height = "773px";
+
+	gasstationData["gasstation_int_layer1"] = document.getElementById("gasstation_int_layer1");
+	gasstationData["gasstation_int_layer1"].style.backgroundImage = "url(\""+ gasstationData["textures"]["int_layer1"] +"\")";
+	gasstationData["gasstation_int_layer1"].style.width  = "928px";
+	gasstationData["gasstation_int_layer1"].style.height = "773px";
+
+	gasstationData["gasstation_int_layer2"] = document.getElementById("gasstation_int_layer2");
+	gasstationData["gasstation_int_layer2"].style.backgroundImage = "url(\""+ gasstationData["textures"]["int_layer2"] +"\")";
+	gasstationData["gasstation_int_layer2"].style.width  = "928px";
+	gasstationData["gasstation_int_layer2"].style.height = "773px";
+	
+	gasstationData["gasstation_int_layer3"] = document.getElementById("gasstation_int_layer3");
+	gasstationData["gasstation_int_layer3"].style.backgroundImage = "url(\""+ gasstationData["textures"]["int_layer3"] +"\")";
+	gasstationData["gasstation_int_layer3"].style.width  = "928px";
+	gasstationData["gasstation_int_layer3"].style.height = "773px";
+
+	gasstationData["gasstation_int_layer4"] = document.getElementById("gasstation_int_layer4");
+	gasstationData["gasstation_int_layer4"].style.backgroundImage = "url(\""+ gasstationData["textures"]["int_layer4"] +"\")";
+	gasstationData["gasstation_int_layer4"].style.width  = "928px";
+	gasstationData["gasstation_int_layer4"].style.height = "773px";
 	
 	addEventListener("mousedown", gasstationInputMouseDown);
 }
@@ -35,7 +66,7 @@ function gasstationUpdate(deltaTime) {
 		if (curMsg == "There is a sign on the stairs reading \"out of order\". I'll have to find another way inside.") {setMessage("")};
 	}
 	if (traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["elem"], "env__gas_station_trigger_backside")) {
-		gasstationData["elem"].dataset.sorting_offset = (GetEntData(document.getElementById("player"))["origin"]["y"] + 5) - GetEntData(gasstationData["elem"])["origin"]["y"];
+		gasstationData["elem"].dataset.sorting_offset = (GetEntData(document.getElementById("player"))["origin"]["y"] + 50) - GetEntData(gasstationData["elem"])["origin"]["y"];
 	} else {
 		gasstationData["elem"].dataset.sorting_offset = 0;
 	}
@@ -77,6 +108,28 @@ function gasstationUpdate(deltaTime) {
 				document.getElementById("generated_gasstation_door_closeup").style.cursor = "default";
 			}
 		}
+	}
+	
+	//interior
+	if (traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_layer1"], "env__gas_station_int_layer1_sort")) {
+		gasstationData["gasstation_int_layer1"].dataset.sorting_offset = (GetEntData(document.getElementById("player"))["origin"]["y"] + 50);
+	} else {
+		gasstationData["gasstation_int_layer1"].dataset.sorting_offset = 0;
+	}
+	if (traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_layer2"], "env__gas_station_int_layer2_sort")) {
+		gasstationData["gasstation_int_layer2"].dataset.sorting_offset = (GetEntData(document.getElementById("player"))["origin"]["y"] + 50);
+	} else {
+		gasstationData["gasstation_int_layer2"].dataset.sorting_offset = 0;
+	}
+	if (traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_layer3"], "env__gas_station_int_layer3_sort")) {
+		gasstationData["gasstation_int_layer3"].dataset.sorting_offset = (GetEntData(document.getElementById("player"))["origin"]["y"] + 50);
+	} else {
+		gasstationData["gasstation_int_layer3"].dataset.sorting_offset = 0;
+	}
+	if (traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_layer4"], "env__gas_station_int_layer4_sort")) {
+		gasstationData["gasstation_int_layer4"].dataset.sorting_offset = (GetEntData(document.getElementById("player"))["origin"]["y"] + 50);
+	} else {
+		gasstationData["gasstation_int_layer4"].dataset.sorting_offset = 0;
 	}
 }
 
