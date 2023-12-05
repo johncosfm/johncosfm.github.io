@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>isogame</title>
+<script src="scripts/global.js"></script>
+<script src="scripts/worlds.js"></script>
+<script src="scripts/sounds.js"></script>
+<script src="scripts/sorting.js"></script>
+<script src="scripts/trace.js"></script>
+<script src="scripts/animator.js"></script>
+<script src="scripts/ent_player.js"></script>
+<script src="scripts/camera.js"></script>
+<script src="scripts/ent_carwreck.js"></script>
+<script src="scripts/env_gasstation.js"></script>
+<script src="scripts/manager.js"></script>
+<style>
+@font-face {
+	font-family: "fnt_fallout";
+	src: url("assets/fnt_fallout.ttf");
+}
+body {
+	background-color: #363636;
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+div {
+	image-rendering: pixelated;
+	position: absolute;
+}
+div#zoom {
+	width: 100%;
+	height: 100%;
+}
+div#msg {
+	top: 70%;
+	width: 100%;
+    font-size: 30px;
+    color: white;
+	font-family: fnt_fallout;
+	text-align: center;
+}
+div#msg>span {
+	background-color: rgba(0,0,0,0.6);
+}
+div#splashscreen {
+	top: 60%;
+	width: 100%;
+    font-size: 30px;
+    color: white;
+	font-family: fnt_fallout;
+    -webkit-text-stroke: 0.4px black;
+	text-align: center;
+}
+</style>
+<body onload="Precache()" onclick="StartGame()" id="body">
+	<div id="splashscreen">Click to start.</div>
+	<div id="zoom"><div id="game">
+		<div id="overworld">
+			<div id="player" data-sequence="player__anim_base_idle" data-origin_offsetx="128" data-origin_offsety="167"></div>
+			<div id="player_waypoint" data-origin_offsetx="128" data-origin_offsety="167" data-fancy_sorting="player_waypoint"></div>
+			<div id="carwreck" data-origin_offsetx="173" data-origin_offsety="140" data-collision="env__carwreck"></div>
+			<div id="gasstation" data-origin_offsetx="777" data-origin_offsety="618" data-collision="env__gas_station"></div>
+			<div id="gasstation_door" data-sequence="env__gasstation_ext_door__anim_locked" data-origin_offsetx="100" data-origin_offsety="97"></div>
+		</div>
+		<div id="shopfloor">
+			<div id="gasstation_int_base"></div>
+			<div id="gasstation_int_layer1"></div>
+			<div id="gasstation_int_layer2"></div>
+			<div id="gasstation_int_layer3"></div>
+			<div id="gasstation_int_layer4"></div>
+		</div>
+	</div></div>
+	<div id="msg"></div>
+</body>
