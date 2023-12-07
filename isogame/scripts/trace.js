@@ -250,6 +250,31 @@ var traceData = {
 			maxs : {x: 945, y: 592},
 			closeup : false,
 		},
+		env__gas_station_int_trigger_blood : {
+			points : [
+				{x: 147, y: 156},
+				{x: 334, y: 398},
+				{x: 598, y: 581},
+				{x: 828, y: 490},
+				{x: 320, y: 124},
+				{x:   0, y: 354},
+			],
+			mins : {x:   0, y: 124},
+			maxs : {x: 828, y: 581},
+			closeup : false,
+		},
+		env__gas_station_int_trigger_drag : {
+			points : [
+				{x: 240, y: 348},
+				{x: 322, y: 328},
+				{x: 496, y: 372},
+				{x: 508, y: 301},
+				{x: 318, y: 210},
+			],
+			mins : {x: 240, y: 210},
+			maxs : {x: 508, y: 372},
+			closeup : false,
+		},
 		closeup__carwreck_trunk__crowbar : {
 			points : [
 				{x: 119, y:  83},

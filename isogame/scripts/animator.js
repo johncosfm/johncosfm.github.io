@@ -1091,7 +1091,7 @@ function animUpdate() {
 			var xFrame = Math.round(((nextframe / animData[curSeq]["grid"]["x"]) - Math.floor(nextframe / animData[curSeq]["grid"]["x"])) * animData[curSeq]["grid"]["x"]);
 			var yFrame = Math.round(((Math.floor(nextframe / animData[curSeq]["grid"]["x"]) / animData[curSeq]["grid"]["y"]) - Math.floor(Math.floor(nextframe / animData[curSeq]["grid"]["x"]) / animData[curSeq]["grid"]["y"])) * animData[curSeq]["grid"]["y"]);
 			//set visuals
-			elem[i].style.backgroundImage = "url(\""+ animData[curSeq]["textures"][elem[i].dataset.sequence_direction] +"\")";
+			elem[i].style.backgroundImage = "url("+ animData[curSeq]["textures"][elem[i].dataset.sequence_direction] +")";
 			elem[i].style.width  = animData[curSeq]["resolution"]["x"] + "px";
 			elem[i].style.height = animData[curSeq]["resolution"]["y"] + "px";
 			elem[i].style.backgroundPosition = (-animData[curSeq]["resolution"]["x"] * xFrame)+"px "+(-animData[curSeq]["resolution"]["y"] * yFrame)+"px";

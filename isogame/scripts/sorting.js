@@ -15,7 +15,7 @@ var sortData = {
 			},
 			slices : 6,
 			sliceSize : 7,
-			additive : true,
+			additive : false,
 		},
 	},
 }

@@ -72,6 +72,16 @@ function setWorld(newWorld) {
 	if (newWorld == "overworld") {
 		gasstationData["doorOpen"] = false;
 	}
+	if (newWorld == "shopfloor") {
+		if (!gasstationData["messages"]["entered"]) {
+			gasstationData["messages"]["entered"] = true;
+			var message = "There's an awful smell like something died in here. At least it's relativley warm, I would have frozen to death if I had stayed outside much longer.";
+			setMessage(message);
+			setTimeout(() => {if (curMsg == message) {
+				setMessage("");
+			}}, 6000);
+		}
+	}
 }
 
 function worldsUpdate(deltaTime) {

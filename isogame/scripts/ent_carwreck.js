@@ -29,7 +29,7 @@ function carwreckInit() {
 	carwreckData["elem"].style.width  = "320px";
 	carwreckData["elem"].style.height = "233px";
 	GetEntData(carwreckData["elem"])["origin"]["x"] = 5579;
-	GetEntData(carwreckData["elem"])["origin"]["y"] = 1784;
+	GetEntData(carwreckData["elem"])["origin"]["y"] = 1865;
 	UpdateEntOrigin(carwreckData["elem"]);
 
 	addEventListener("mousedown", carwreckInputMouseDown);

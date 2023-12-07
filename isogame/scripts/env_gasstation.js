@@ -15,6 +15,13 @@ var gasstationData = {
 	closeupAnimPlaying : false,
 	doorLocked : true,
 	doorOpen : false,
+	messages : {
+		sawExt : false,
+		entered : false,
+		sawBlood : false,
+		sawDrag : false,
+		sawBloodDoor : false,
+	},
 }
 
 function gasstationInit() {
@@ -130,6 +137,24 @@ function gasstationUpdate(deltaTime) {
 		gasstationData["gasstation_int_layer4"].dataset.sorting_offset = (GetEntData(document.getElementById("player"))["origin"]["y"] + 50);
 	} else {
 		gasstationData["gasstation_int_layer4"].dataset.sorting_offset = 0;
+	}
+	
+	if (!gasstationData["messages"]["sawBlood"] && traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_base"], "env__gas_station_int_trigger_blood")) {
+		gasstationData["messages"]["sawBlood"] = true;
+/* 		var message = "That's a lot of blood. I don't like this.";
+		setMessage(message);
+		setTimeout(() => {if (curMsg == message) {
+			setMessage("");
+		}}, 4000); */
+	}
+	if(gasstationData["messages"]["sawBlood"] && !gasstationData["messages"]["sawDrag"]
+	&& traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_base"], "env__gas_station_int_trigger_drag")) {
+		gasstationData["messages"]["sawDrag"] = true;
+		var message = "Someone or something was dragged across the floor here. I'm not sure what could bleed this much.";
+		setMessage(message);
+		setTimeout(() => {if (curMsg == message) {
+			setMessage("");
+		}}, 4000);
 	}
 }
 

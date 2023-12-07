@@ -77,7 +77,7 @@ function PrecacheUrl(src) {
 	}
 	if (!precacheList.includes(src)) {
 		precacheList.push(src);
-		document.getElementById("generated_precache").style.content += " url(\"" + src + "\")"
+		document.getElementById("generated_precache").style.content += " url(" + src + ")"
 	}
 }
 
