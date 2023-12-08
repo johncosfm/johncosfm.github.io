@@ -30,6 +30,7 @@ var playerData = {
 	stuck : false,
 	waypointOpacity : 0,
 	hasCrowbar : false,
+	showKeybindsTime : 0,
 }
 
 function playerInit() {
@@ -233,6 +234,15 @@ function playerUpdate(deltaTime) {
 		player.dataset.sequence = newSeq.replace("player__anim_base", "player__anim_crowbar");
 	} else if (newSeq) {
 		player.dataset.sequence = newSeq;
+	}
+	
+	//update keybind text
+	playerData["showKeybindsTime"] = Clamp(playerData["showKeybindsTime"] - deltaTime, 0, 100);
+	document.getElementById("controls").style.opacity = Math.round(Clamp(playerData["showKeybindsTime"], 0, 1) * 10) / 10;
+	if (playerData["showKeybindsTime"] > 0) {
+		document.getElementById("controls").style.display = "block";
+	} else {
+		document.getElementById("controls").style.display = "none";
 	}
 }
 

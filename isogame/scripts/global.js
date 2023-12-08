@@ -108,7 +108,11 @@ function globalInputMousemove(e) {
 var curMsg = "";
 function setMessage(msg) {
 	if (msg != curMsg) {
-		document.getElementById("msg").innerHTML = "<span>" + msg + "</span>";
+		if (msg == "") {
+			document.getElementById("msg").innerHTML = "";
+		} else {
+			document.getElementById("msg").innerHTML = "<span>" + msg + "</span>";
+		}
 		curMsg = msg;
 	}
 }

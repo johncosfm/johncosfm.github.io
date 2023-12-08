@@ -386,7 +386,7 @@ var animData = { //big dict with all the info needed for animations
 		animEvents : {
 			0 : "camData['locked'] = true; playerData['locked'] = true; playSoundEvent('snd__player__anim_cin01__wake_action')",
 			30 : "playSoundEvent('snd__music__playgo')",
-			260 : "camData['locked'] = false; playerData['locked'] = false",
+			260 : "camData['locked'] = false; playerData['locked'] = false; playerData['showKeybindsTime'] = 7",
 		},
 	},
 	player__anim_cin01_wake_postidle : {

@@ -44,6 +44,7 @@ div#msg {
 }
 div>span {
 	background-color: rgba(0,0,0,0.6);
+	padding: 0 5px;
 }
 div#splashscreen {
 	top: 60%;
@@ -59,6 +60,23 @@ div#screenfade {
 	width: 100%;
 	height: 100%;
 	opacity: 0;
+}
+div#vesion_number {
+	width: calc(100% - 5px);
+    font-size: 30px;
+    color: white;
+	font-family: fnt_fallout;
+    -webkit-text-stroke: 0.4px black;
+	text-align: right;
+}
+div#controls {
+	top: 40%;
+    font-size: 20px;
+    color: white;
+	font-family: fnt_fallout;
+    -webkit-text-stroke: 0.4px black;
+	background-color: rgba(0,0,0,0.6);
+	padding: 10px 10px;
 }
 </style>
 <body onload="Precache()" onclick="StartGame()" id="body">
@@ -95,13 +113,15 @@ div#screenfade {
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__snow_road.png);
 							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__snow_road__mask.png);
 							-webkit-mask-size: 16328px 7168px;"></div>
+				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__sleet_covered_gravel.png);
+							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__sleet_covered_gravel__mask.png);
+							-webkit-mask-size: 16328px 7168px;"></div>
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__frozen_lake.png);
 							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__frozen_lake__mask.png);
 							-webkit-mask-size: 16328px 7168px;"></div>
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__skated_frozen_lake.png);
 							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__skated_frozen_lake__mask.png);
 							-webkit-mask-size: 16328px 7168px;"></div>
-
 				<!-- main road -->
 				<div style="width: 1334px; height: 867px; background-image: url(assets/tex__env__road_01.png); top: 1181px; left: 8110px;"></div>
 				<div style="width: 1377px; height: 703px; background-image: url(assets/tex__env__road_02.png); top: 870px; left: 10643px;"></div>
@@ -131,6 +151,13 @@ div#screenfade {
 		</div>
 	</div></div>
 	<div id="msg"></div>
+	<div id="vesion_number"><span>0.7.3 - WIP</span></div>
+	<div id="controls" style="display: none;">
+		CONTROLS</br>
+		middle mouse - drag camera</br>
+		WASD keys - manual walk</br>
+		left click - set waypoint/interact</br>
+	</div>
 	<div id="splashscreen"><span>loading...</span></div>
 	<div id="screenfade"></div>
 </body>
