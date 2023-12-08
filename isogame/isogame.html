@@ -4,6 +4,7 @@
 <title>isogame</title>
 <script src="scripts/global.js"></script>
 <script src="scripts/worlds.js"></script>
+<script src="scripts/scatter.js"></script>
 <script src="scripts/sounds.js"></script>
 <script src="scripts/sorting.js"></script>
 <script src="scripts/trace.js"></script>
@@ -41,7 +42,7 @@ div#msg {
 	font-family: fnt_fallout;
 	text-align: center;
 }
-div#msg>span {
+div>span {
 	background-color: rgba(0,0,0,0.6);
 }
 div#splashscreen {
@@ -62,16 +63,23 @@ div#screenfade {
 </style>
 <body onload="Precache()" onclick="StartGame()" id="body">
 	<div id="zoom"><div id="game">
+		<!-- theres more than a thousand generated divs in overworld for all the foliage, inspect element kinda doesnt like when you open it -->
 		<div id="overworld">
 			<div id="player" data-sequence="player__anim_cin01_wake_action" data-origin_offsetx="128" data-origin_offsety="167"></div>
 			<div id="player_waypoint" data-origin_offsetx="128" data-origin_offsety="167" data-fancy_sorting="player_waypoint"></div>
 			<div id="carwreck" data-origin_offsetx="173" data-origin_offsety="140" data-collision="env__carwreck"></div>
 			<div id="gasstation" data-origin_offsetx="777" data-origin_offsety="618" data-collision="env__gas_station"></div>
 			<div id="gasstation_door" data-sequence="env__gasstation_ext_door__anim_locked" data-origin_offsetx="100" data-origin_offsety="97"></div>
+			<div id="gasstation_cover" style="width: 1171px; height: 864px; background-image: url(assets/tex__env__gasstation_ext_cover.png);" 
+				 data-origin_x="7664" data-origin_y="170" data-sorting_offset="1500"></div>
+			<div id="gasstation_sign" style="width: 124px; height: 486px; background-image: url(assets/tex__env__gasstation_ext_sign.png);" 
+				 data-origin_x="9088" data-origin_y="1200" data-origin_offsetx="55" data-origin_offsety="420" data-collision="env__gas_station_ext_sign"></div>
+			<!-- scatter trees are added here-->
+			<div id="trees_anchor"></div>
 			<div id="world">
 				<!-- blend stack -->
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__fresh_windswept_snow.png);
-							top: -2000px; left: -2160px;"></div>
+							top: -2000px; left: -2160px;" id="world_ref"></div>
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__fresh_snow_2.png);
 							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__fresh_snow_2__mask.png);
 							-webkit-mask-size: 16328px 7168px;"></div>
@@ -87,6 +95,13 @@ div#screenfade {
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__snow_road.png);
 							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__snow_road__mask.png);
 							-webkit-mask-size: 16328px 7168px;"></div>
+				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__frozen_lake.png);
+							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__frozen_lake__mask.png);
+							-webkit-mask-size: 16328px 7168px;"></div>
+				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__skated_frozen_lake.png);
+							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__skated_frozen_lake__mask.png);
+							-webkit-mask-size: 16328px 7168px;"></div>
+
 				<!-- main road -->
 				<div style="width: 1334px; height: 867px; background-image: url(assets/tex__env__road_01.png); top: 1181px; left: 8110px;"></div>
 				<div style="width: 1377px; height: 703px; background-image: url(assets/tex__env__road_02.png); top: 870px; left: 10643px;"></div>
@@ -99,8 +114,11 @@ div#screenfade {
 				<div style="width: 2025px; height: 1050px;background-image: url(assets/tex__env__road_06.png); top: 2011px; left: 1452px;"></div>
 				<div style="width: 2025px; height: 1050px;background-image: url(assets/tex__env__road_06.png); top: 3532px; left: -1920px;"></div>
 				
+				<!-- scatter grass is added here -->
+				<div id="grass_anchor"></div>
+				
 				<!-- lightmap (very fake and only used for gas station) -->
-				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__lightmap.png); top: -2000px; left: -2160px; background-size: 16328px 7168px; opacity: 0.7; mix-blend-mode: multiply;"></div>
+				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__lightmap.png); top: -2000px; left: -2160px; background-size: 16328px 7168px; opacity: 0.4; mix-blend-mode: multiply;"></div>
 			</div>
 		</div>
 		<div id="shopfloor" style="display : none;">
@@ -113,6 +131,6 @@ div#screenfade {
 		</div>
 	</div></div>
 	<div id="msg"></div>
-	<div id="splashscreen">Click to start.</div>
+	<div id="splashscreen"><span>loading...</span></div>
 	<div id="screenfade"></div>
 </body>

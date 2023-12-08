@@ -13,7 +13,11 @@ function StartGame() {
 //init functions
 function Precache() {
 	animPrecache();
-	carwreckPrecache()
+	carwreckPrecache();
+	
+	//we also need to scatter objects here instead of on game init
+	scatterInit();
+	document.getElementById("splashscreen").innerHTML = "<span>Click to start.</span>";
 }
 
 function Init() {
@@ -51,6 +55,7 @@ function testSkip() {
 }
 
 //dont let the user break the carefully crafted listening experience with the media keys
+//(which is really annoying since it also blocks media keys for other sites but thats an issue with the system sucking not my site lol)
 navigator.mediaSession.setActionHandler('play', function() {});
 navigator.mediaSession.setActionHandler('pause', function() {});
 navigator.mediaSession.setActionHandler('seekbackward', function() {});

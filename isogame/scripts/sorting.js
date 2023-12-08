@@ -46,7 +46,7 @@ function sortInit() {
 				if (info["additive"]) {newelem.style.mixBlendMode = "screen"}
 				if ("origin_offsetx" in elem[i].dataset) {newelem.dataset.origin_offsetx = elem[i].dataset.origin_offsetx}
 				if ("origin_offsety" in elem[i].dataset) {newelem.dataset.origin_offsety = elem[i].dataset.origin_offsety}
-				UpdateEntOrigin(newelem)
+				UpdateEntOrigin(newelem);
 				entData["entities"][elem[i].dataset.ent_index]["children"].push(newelem.dataset.ent_index);
 				elem[i].parentNode.insertBefore(newelem, elem[i].nextSibling);
 				max++;

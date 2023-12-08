@@ -101,5 +101,10 @@ function worldsUpdate(deltaTime) {
 			camData["locked"] = false;
 		}
 	}
+	if (worldsData["inTransition"]) {
+		document.getElementById("screenfade").style.display = "block";
+	} else {
+		document.getElementById("screenfade").style.display = "none";
+	}
 	document.getElementById("screenfade").style.opacity = Math.round(worldsData["fade"] * 4) / 4;
 }

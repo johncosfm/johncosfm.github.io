@@ -11,6 +11,8 @@ function globalInit() {
 	//set ent origin offsets
 	var elem = document.getElementsByTagName("*");
 	for (var i=0, max=elem.length; i < max; i++) {
+		if ("origin_x" in elem[i].dataset) {GetEntData(elem[i])["origin"]["x"] = Number(elem[i].dataset.origin_x); UpdateEntOrigin(elem[i]);}
+		if ("origin_y" in elem[i].dataset) {GetEntData(elem[i])["origin"]["y"] = Number(elem[i].dataset.origin_y); UpdateEntOrigin(elem[i]);}
 		if(("origin_offsetx" in elem[i].dataset) || ("origin_offsety" in elem[i].dataset)) {
 			GetEntData(elem[i]);
 			UpdateEntOrigin(elem[i]);
