@@ -24,6 +24,14 @@ var gasstationData = {
 	},
 }
 
+function gasstationPrecache() {
+	PrecacheUrl(gasstationData["textures"]["int_base"]);
+	PrecacheUrl(gasstationData["textures"]["int_layer1"]);
+	PrecacheUrl(gasstationData["textures"]["int_layer2"]);
+	PrecacheUrl(gasstationData["textures"]["int_layer3"]);
+	PrecacheUrl(gasstationData["textures"]["int_layer4"]);
+}
+
 function gasstationInit() {
 	gasstationData["elem"] = document.getElementById("gasstation");
 	gasstationData["elem"].style.backgroundImage = "url(\""+ gasstationData["textures"]["exterior"] +"\")";
