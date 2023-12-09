@@ -305,6 +305,61 @@ var traceData = {
 			closeup : false,
 			ignoreWorldCheck : false,
 		},
+		env__gas_station_int_broomcloset_1 : {
+			points : [
+				{x:  26, y: 260},
+				{x: 120, y: 196},
+				{x: 180, y: 224},
+				{x: 205, y: 203},
+				{x: 289, y: 261},
+				{x:  55, y: 435},
+				{x: 144, y: 526},
+				{x: 458, y: 266},
+				{x: 162, y:  78},
+				{x:-140, y: 249},
+				{x:  51, y: 431},
+				{x: 151, y: 356},
+			],
+			mins : {x:-140, y:  78},
+			maxs : {x: 458, y: 435},
+			closeup : false,
+			ignoreWorldCheck : false,
+		},
+		env__gas_station_int_broomcloset_2 : {
+			points : [
+				{x:  27, y: 261},
+				{x: 189, y: 387},
+				{x:  44, y: 352},
+			],
+			mins : {x:  27, y: 261},
+			maxs : {x: 189, y: 387},
+			closeup : false,
+			ignoreWorldCheck : false,
+		},
+		env__door_01_interact : {
+			points : [
+				{x:  57, y:  39},
+				{x: 125, y:  82},
+				{x: 125, y: 219},
+				{x:  69, y: 177},
+			],
+			mins : {x:  57, y:  39},
+			maxs : {x: 125, y: 219},
+			closeup : false,
+			ignoreWorldCheck : false,
+		},
+		env__door_03_interact : {
+			points : [
+				{x:  88, y:  83},
+				{x: 155, y:  42},
+				{x: 152, y: 176},
+				{x:  97, y: 216},
+			],
+			mins : {x:  88, y:  42},
+			maxs : {x: 155, y: 216},
+			closeup : false,
+			ignoreWorldCheck : false,
+		},
 		env__foliage__deadgrass_01 : {
 			points : [
 				{x:10192, y: 3412},
@@ -595,6 +650,7 @@ function traceEnt(pos, ent) {
 }
 
 function traceEntHull(pos, ent, hull) {
+	if (ent.style.display == "none") {return;}
 	hull = traceData["hulls"][hull];
 	if (!hull["closeup"] && !hull["ignoreWorldCheck"] && ent.parentElement.id != worldsData["currentWorld"]) {return;}
 	var mins = traceConvertTexCoords(hull["mins"], ent, hull["closeup"]);

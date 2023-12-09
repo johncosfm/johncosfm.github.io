@@ -49,7 +49,7 @@ function carwreckUpdate(deltaTime) {
 		} else {
 			carwreckData["elem"].style.backgroundImage = "url(\""+ carwreckData["textures"]["trunkClosed"] +"\")";
 		}
-		playerData["lockNewGoals"] = false;
+		if (worldsData["currentWorld"] == "overworld") {playerData["lockNewGoals"] = false;}
 	}
 	if (carwreckData["closeup"]) {
 		document.getElementById("generated_carwreckcloseup").style.transform = "scale("+7.5*(window.innerHeight/1291)+")";

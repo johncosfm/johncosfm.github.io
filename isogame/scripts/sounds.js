@@ -200,6 +200,123 @@ var soundeventData = {
 		fadeIn : false,
 		loop : false,
 	},
+	snd__fol__door_metal_open : {
+		sounds : [
+			"assets/snd__fol__door_metal_open_01.wav",
+			"assets/snd__fol__door_metal_open_02.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : true,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__fol__door_metal_move : {
+		sounds : [
+			"assets/snd__fol__door_metal_move_01.wav",
+			"assets/snd__fol__door_metal_move_02.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : true,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__fol__door_metal_close : {
+		sounds : [
+			"assets/snd__fol__door_metal_close_01.wav",
+			"assets/snd__fol__door_metal_close_02.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : true,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__fol__door_wood_open : {
+		sounds : [
+			"assets/snd__fol__door_wood_open_01.wav",
+			"assets/snd__fol__door_wood_open_02.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : true,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__fol__door_wood_move : {
+		sounds : [
+			"assets/snd__fol__door_wood_move_01.wav",
+			"assets/snd__fol__door_wood_move_02.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : true,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__fol__door_wood_close : {
+		sounds : [
+			"assets/snd__fol__door_wood_close_01.wav",
+			"assets/snd__fol__door_wood_close_02.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : true,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__fol__door_wood_locked : {
+		sounds : [
+			"assets/snd__fol__door_wood_locked_01.wav",
+			"assets/snd__fol__door_wood_locked_02.wav",
+		],
+		volume : 0.2,
+		noRepeat : false,
+		scaleByCameraZoom : true,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__ambient__broomcloset_fakeout : {
+		sounds : [
+			"assets/snd__ambient__broomcloset_fakeout.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : false,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__scripted__headache : {
+		sounds : [
+			"assets/snd__scripted__headache.wav",
+		],
+		volume : 0.8,
+		noRepeat : false,
+		scaleByCameraZoom : false,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__ambient__orbvoid_base_loop : {
+		sounds : [
+			"assets/snd__ambient__orbvoid_base_loop.wav",
+		],
+		volume : 0.8,
+		noRepeat : false,
+		scaleByCameraZoom : false,
+		divideByCameraZoom : false,
+		fadeIn : 10,
+		loop : true,
+	},
 }
 var soundInside = true;
 function soundInit() {
@@ -207,6 +324,7 @@ function soundInit() {
 	if (worldsData["currentWorld"] == "shopfloor") {
 		playSoundEvent("snd__ambient__int_base");
 		playSoundEvent("snd__ambient__int_music");
+	} else if (worldsData["currentWorld"] == "orbvoid") {
 	} else {
 		playSoundEvent("snd__ambient_ext_base");
 		playSoundEvent("snd__ambient_ext_wind");
@@ -221,6 +339,7 @@ function soundUpdate(deltaTime) {
 			playSoundEvent("snd__ambient__int_rand");
 			soundeventData["snd__ambient__int_rand"]["next"] = CurTime() + getRandomInt(5,15);
 		}
+	} else if (worldsData["currentWorld"] == "orbvoid") {
 	} else {
 		if (!soundeventData["snd__ambient__ext_rand"]["next"]) {soundeventData["snd__ambient__ext_rand"]["next"] = CurTime() + getRandomInt(3,10);}
 		if (CurTime() > soundeventData["snd__ambient__ext_rand"]["next"]) {
@@ -295,6 +414,9 @@ function soundStop() {
 
 function playSoundEvent(sndevt) {
 	if (sndevt == "snd__player_step" && worldsData["currentWorld"] == "shopfloor") {
+		sndevt = "snd__player_step_tile";
+	}
+	if (sndevt == "snd__player_step" && worldsData["currentWorld"] == "orbvoid") {
 		sndevt = "snd__player_step_tile";
 	}
 	if (sndevt in soundeventData) {

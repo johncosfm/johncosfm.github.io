@@ -2,6 +2,7 @@
 <html lang="en">
 <meta charset="UTF-8">
 <title>isogame</title>
+<link rel="icon" type="image/x-icon" href="assets/tex__player__favicon.png">
 <script src="scripts/global.js"></script>
 <script src="scripts/worlds.js"></script>
 <script src="scripts/scatter.js"></script>
@@ -20,7 +21,7 @@
 	src: url("assets/fnt_fallout.ttf");
 }
 body {
-	background-color: #363636;
+	background-color: black; /* #363636; */
 	margin: 0;
 	width: 100vw;
 	height: 100vh;
@@ -83,7 +84,7 @@ div#controls {
 	<div id="zoom"><div id="game">
 		<!-- theres more than a thousand generated divs in overworld for all the foliage, inspect element kinda doesnt like when you open it -->
 		<div id="overworld">
-			<div id="player" data-sequence="player__anim_cin01_wake_action" data-origin_offsetx="128" data-origin_offsety="167"></div>
+			<div id="player" data-sequence="player__anim_base_idle" data-origin_offsetx="128" data-origin_offsety="167"></div>
 			<div id="player_waypoint" data-origin_offsetx="128" data-origin_offsety="167" data-fancy_sorting="player_waypoint"></div>
 			<div id="carwreck" data-origin_offsetx="173" data-origin_offsety="140" data-collision="env__carwreck"></div>
 			<div id="gasstation" data-origin_offsetx="777" data-origin_offsety="618" data-collision="env__gas_station"></div>
@@ -122,6 +123,7 @@ div#controls {
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__skated_frozen_lake.png);
 							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__skated_frozen_lake__mask.png);
 							-webkit-mask-size: 16328px 7168px;"></div>
+							
 				<!-- main road -->
 				<div style="width: 1334px; height: 867px; background-image: url(assets/tex__env__road_01.png); top: 1181px; left: 8110px;"></div>
 				<div style="width: 1377px; height: 703px; background-image: url(assets/tex__env__road_02.png); top: 870px; left: 10643px;"></div>
@@ -148,10 +150,19 @@ div#controls {
 			<div id="gasstation_int_layer2" data-collision="env__gas_station_int_layer2"></div>
 			<div id="gasstation_int_layer3" data-collision="env__gas_station_int_layer3"></div>
 			<div id="gasstation_int_layer4" data-collision="env__gas_station_int_layer4"></div>
+			<div id="door_01" data-sequence="env__door_01__anim_open_idle" data-origin_offsetx="91" data-origin_offsety="192" data-origin_x="540" data-origin_y="740" style="opacity: 0.6;"></div>
+			<div id="door_02" data-sequence="env__door_02__anim_closed_idle" data-origin_offsetx="91" data-origin_offsety="192" data-origin_x="53" data-origin_y="395" style="opacity: 0.6;"></div>
+		</div>
+		<div id="orbvoid" style="display : none;">
+			<div id="fakecloset" style="width: 315px; height: 374px; background-image: url(assets/tex__env__broomcloset_fake.png);" data-collision="env__gas_station_int_broomcloset_1"></div>
+			<div data-collision="env__gas_station_int_broomcloset_2"></div>
+			<div id="door_03" data-sequence="env__door_03__anim_open_idle" data-origin_offsetx="125" data-origin_offsety="195" data-origin_x="238" data-origin_y="313" style="opacity: 0.6;"></div>
+			<div id="orb_core" data-sequence="env__orb_core__anim_idle" data-origin_offsetx="256" data-origin_offsety="256" data-origin_x="-400" data-origin_y="-300" data-sorting_offset="1500" style="mix-blend-mode: screen; display: none;"></div>
+			<div id="orb_bloom" data-sequence="env__orb_bloom__anim_idle" data-origin_offsetx="256" data-origin_offsety="256" data-origin_x="-400" data-origin_y="-300" data-sorting_offset="3000" style="mix-blend-mode: screen; display: none; opacity: 0.1; transform: scale(5);"></div>
 		</div>
 	</div></div>
 	<div id="msg"></div>
-	<div id="vesion_number"><span>0.7.3 - WIP</span></div>
+	<div id="vesion_number"><span>0.9.1 - WIP</span></div>
 	<div id="controls" style="display: none;">
 		CONTROLS</br>
 		middle mouse - drag camera</br>

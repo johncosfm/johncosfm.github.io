@@ -31,6 +31,18 @@ var worldsData = {
 				zoom : 3.5,
 			},
 		},
+		orbvoid : {
+			playerStart : {
+				x : 207,
+				y : 290,
+				dir : "dir_135",
+			},
+			cameraStart : {
+				x : 186,
+				y : 217,
+				zoom : 3.5,
+			},
+		},
 	},
 }
 
@@ -68,6 +80,9 @@ function setWorld(newWorld) {
 	camData["position"]["y"] = worldsData["worlds"][newWorld]["cameraStart"]["y"];
 	camData["zoom"] = worldsData["worlds"][newWorld]["cameraStart"]["zoom"];
 	
+	playerData["useGoalInput"] = false;
+	setMessage("");
+	
 	//game specific hacky stuff
 	if (newWorld == "overworld") {
 		gasstationData["doorOpen"] = false;
@@ -81,6 +96,10 @@ function setWorld(newWorld) {
 				setMessage("");
 			}}, 6000);
 		}
+	}
+	if (newWorld == "orbvoid") {
+		playSoundEvent("snd__ambient__broomcloset_fakeout");
+		setTimeout(() => {playerData["locked"] = true; playerData["useGoalInput"] = false; document.getElementById("player").dataset.sequence = "player__anim_cin04_headache_action"}, 2000);
 	}
 }
 
@@ -101,10 +120,10 @@ function worldsUpdate(deltaTime) {
 			camData["locked"] = false;
 		}
 	}
-	if (worldsData["inTransition"]) {
+	if (worldsData["inTransition"] || worldsData["fade"] > 0) {
 		document.getElementById("screenfade").style.display = "block";
 	} else {
 		document.getElementById("screenfade").style.display = "none";
 	}
-	document.getElementById("screenfade").style.opacity = Math.round(worldsData["fade"] * 4) / 4;
+	document.getElementById("screenfade").style.opacity = Math.round(worldsData["fade"] * 10) / 10;
 }

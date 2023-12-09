@@ -203,9 +203,9 @@ function playerUpdate(deltaTime) {
 		if (playerData["keyInput"]["x"] == 1 && playerData["keyInput"]["y"] ==-1) {newDir = "dir_315";}
 		if (newDir) {playerData["waypointOpacity"] = 0};
 	}
-	if (newDir && !playerData["stuck"] || playerData["stuck"] != newDir) {
+	if (newDir && !playerData["locked"] && !playerData["stuck"] || playerData["stuck"] != newDir) {
 		playerData["stuck"] = false;
-		if ((!("sequence_direction" in player.dataset) || player.dataset.sequence_direction != newDir) && newDir) {player.dataset.sequence_direction = newDir;}
+		if ((!("sequence_direction" in player.dataset) || player.dataset.sequence_direction != newDir) && newDir && !playerData["locked"]) {player.dataset.sequence_direction = newDir;}
 		if (!("sequence" in player.dataset)) {
 			newSeq = "player__anim_base_walkstart";
 		} else if (player.dataset.sequence != "player__anim_base_walkstart" && player.dataset.sequence != "player__anim_base_walk"
@@ -230,10 +230,12 @@ function playerUpdate(deltaTime) {
 	}
 	SetEntOpacity(document.getElementById("player_waypoint"), Math.round(playerData["waypointOpacity"] * 4) / 4);
 	//sequence remap for crowbar
-	if (newSeq && playerData["hasCrowbar"]) {
-		player.dataset.sequence = newSeq.replace("player__anim_base", "player__anim_crowbar");
-	} else if (newSeq) {
-		player.dataset.sequence = newSeq;
+	if (!playerData["locked"]) {
+		if (newSeq && playerData["hasCrowbar"]) {
+			player.dataset.sequence = newSeq.replace("player__anim_base", "player__anim_crowbar");
+		} else if (newSeq) {
+			player.dataset.sequence = newSeq;
+		}
 	}
 	
 	//update keybind text

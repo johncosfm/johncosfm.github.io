@@ -22,6 +22,10 @@ var gasstationData = {
 		sawDrag : false,
 		sawBloodDoor : false,
 	},
+	orbvoidFlickerStrength : 0,
+	orbvoidFlickerValue: 0,
+	orbvoidFlickerNextSet: 0,
+	voidmode : false,
 }
 
 function gasstationPrecache() {
@@ -164,10 +168,136 @@ function gasstationUpdate(deltaTime) {
 			setMessage("");
 		}}, 4000);
 	}
+	
+	//orbvoid flickering
+	if (gasstationData["orbvoidFlickerStrength"] > 0) {
+		if (CurTime() > gasstationData["orbvoidFlickerNextSet"]) {
+			gasstationData["orbvoidFlickerValue"] = ((getRandomInt(0, 32)/32) * gasstationData["orbvoidFlickerStrength"]) + (1-gasstationData["orbvoidFlickerStrength"])
+			gasstationData["orbvoidFlickerNextSet"] = CurTime() + 0.1;
+		}
+		worldsData["fade"] = gasstationData["orbvoidFlickerValue"];
+	}
+	
+	//doors
+	if (worldsData["currentWorld"] == "shopfloor") {
+		if (traceEntHull(cursorPosWS, document.getElementById("door_01"), "env__door_01_interact") || traceEntHull(cursorPosWS, document.getElementById("door_02"), "env__door_01_interact")) {
+			playerData["lockNewGoals"] = true;
+		} else {
+			playerData["lockNewGoals"] = false;
+		}
+	}
+	//doors
+	if (worldsData["currentWorld"] == "orbvoid") {
+		if (!gasstationData["voidmode"] && traceEntHull(cursorPosWS, document.getElementById("door_03"), "env__door_03_interact")) {
+			playerData["lockNewGoals"] = true;
+		} else {
+			playerData["lockNewGoals"] = false;
+		}
+	}
 }
 
 function gasstationInputMouseDown(e) {
 	if (e.button != 0) {return;}
+	//door 01
+	if (traceEntHull(cursorPosWS, document.getElementById("door_01"), "env__door_01_interact")) {
+		var player = GetEntData(document.getElementById("player"));
+		var interactTargetPos = texToWorldSpace({x: 119, y: 171}, document.getElementById("door_01"));
+		var message = "I can't go through that door, it's too far away.";
+		if (calcDist(interactTargetPos["x"], interactTargetPos["y"], player["origin"]["x"], player["origin"]["y"]) > 100) {
+			setMessage(message);
+			setTimeout(() => {if (curMsg == message) {
+				setMessage("");
+			}}, 2000);
+			return;
+		}
+		if (curMsg == message) {setMessage("");}
+		document.getElementById("door_01").dataset.sequence = "env__door_01__anim_open";
+		if (calcDist(interactTargetPos["x"], interactTargetPos["y"], player["origin"]["x"], player["origin"]["y"]) > 20) {
+			playerData["scriptedGoalInput"] = true;
+			if (playerData["hasCrowbar"]) {
+				playerData["scriptedGoalAnim"] = "player__anim_crowbar_idle";
+			} else {
+				playerData["scriptedGoalAnim"] = "player__anim_base_idle";
+			}
+			playerData["goalInput"]["x"] = interactTargetPos["x"];
+			playerData["goalInput"]["y"] = interactTargetPos["y"];
+			playerData["pathInfo"]["stale"] = true;
+			playerData["useGoalInput"] = true;
+		} else {
+			document.getElementById("player").dataset.sequence_direction = "dir_045";
+		}
+		return;
+	}
+	//door 02
+	if (traceEntHull(cursorPosWS, document.getElementById("door_02"), "env__door_01_interact")) {
+		var player = GetEntData(document.getElementById("player"));
+		var interactTargetPos = texToWorldSpace({x: 119, y: 171}, document.getElementById("door_02"));
+		var message = "I can't go through that door, it's too far away.";
+		if (calcDist(interactTargetPos["x"], interactTargetPos["y"], player["origin"]["x"], player["origin"]["y"]) > 100) {
+			setMessage(message);
+			setTimeout(() => {if (curMsg == message) {
+				setMessage("");
+			}}, 2000);
+			return;
+		}
+		if (curMsg == message) {setMessage("");}
+		document.getElementById("door_02").dataset.sequence = "env__door_02__anim_open";
+		if (calcDist(interactTargetPos["x"], interactTargetPos["y"], player["origin"]["x"], player["origin"]["y"]) > 20) {
+			playerData["scriptedGoalInput"] = true;
+			if (playerData["hasCrowbar"]) {
+				playerData["scriptedGoalAnim"] = "player__anim_crowbar_idle";
+			} else {
+				playerData["scriptedGoalAnim"] = "player__anim_base_idle";
+			}
+			playerData["goalInput"]["x"] = interactTargetPos["x"];
+			playerData["goalInput"]["y"] = interactTargetPos["y"];
+			playerData["pathInfo"]["stale"] = true;
+			playerData["useGoalInput"] = true;
+		} else {
+			document.getElementById("player").dataset.sequence_direction = "dir_045";
+		}
+		return;
+	}
+	//door 03
+	if (!gasstationData["voidmode"] && traceEntHull(cursorPosWS, document.getElementById("door_03"), "env__door_03_interact")) {
+		var player = GetEntData(document.getElementById("player"));
+		var interactTargetPos = texToWorldSpace({x: 119, y: 171}, document.getElementById("door_03"));
+		var message = "I can't go through that door, it's too far away.";
+		if (calcDist(interactTargetPos["x"], interactTargetPos["y"], player["origin"]["x"], player["origin"]["y"]) > 100) {
+			setMessage(message);
+			setTimeout(() => {if (curMsg == message) {
+				setMessage("");
+			}}, 2000);
+			return;
+		}
+		if (worldsData["currentWorld"] == "orbvoid") {
+			playSoundEvent("snd__fol__door_wood_locked");
+			var message = "Inconveniently, the door is now locked.";
+			setMessage(message);
+			setTimeout(() => {if (curMsg == message) {
+				setMessage("");
+			}}, 1000);
+		} else {
+			if (curMsg == message) {setMessage("");}
+			document.getElementById("door_03").dataset.sequence = "env__door_03__anim_open";
+			if (calcDist(interactTargetPos["x"], interactTargetPos["y"], player["origin"]["x"], player["origin"]["y"]) > 20) {
+				playerData["scriptedGoalInput"] = true;
+				if (playerData["hasCrowbar"]) {
+					playerData["scriptedGoalAnim"] = "player__anim_crowbar_idle";
+				} else {
+					playerData["scriptedGoalAnim"] = "player__anim_base_idle";
+				}
+				playerData["goalInput"]["x"] = interactTargetPos["x"];
+				playerData["goalInput"]["y"] = interactTargetPos["y"];
+				playerData["pathInfo"]["stale"] = true;
+				playerData["useGoalInput"] = true;
+			} else {
+				document.getElementById("player").dataset.sequence_direction = "dir_045";
+			}
+		}
+		return;
+	}
+	//exterior stuff
 	if (gasstationData["closeup"]) {
 		if (gasstationData["closeupAnimPlaying"]) {return;}
 		if(playerData["hasCrowbar"] && (traceEntHull(cursorPos, document.getElementById("generated_gasstation_door_closeup"), "closeup__gasstation_door__boards_1") 
@@ -232,4 +362,10 @@ function gassttationDoorInteractOpen() {
 	playerData["locked"] = true;
 	gasstationData["doorOpen"] = true;
 	gasstationData["doorElem"].dataset.sequence = "env__gasstation_ext_door__anim_action";
+}
+
+function gasstationStartVoidMode() {
+	gasstationData["voidmode"] = true;
+	document.getElementById("fakecloset").style.display = "none";
+	document.getElementById("door_03").style.display = "none";
 }

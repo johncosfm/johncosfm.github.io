@@ -164,3 +164,9 @@ function texToWorldSpace(pos, ent) {
 		y: ((rect.top - globalrect.top) / camData["realScale"]) + pos["y"]
 	};
 }
+
+function setEntOriginById(id,x,y) {
+	GetEntData(document.getElementById(id))["origin"]["x"] = x;
+	GetEntData(document.getElementById(id))["origin"]["y"] = y;
+	UpdateEntOrigin(document.getElementById(id));
+}
