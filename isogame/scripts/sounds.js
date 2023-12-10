@@ -373,6 +373,7 @@ var soundeventData = {
 var soundInside = true;
 
 function soundPrecache() {
+	if (worldsData["currentWorld"] == "shopfloor") {return;} //to fix a weird bug
 	for (var sndevt in soundeventData) {
 		for (var asset in soundeventData[sndevt]["sounds"]) {
 			PrecacheSound(soundeventData[sndevt]["sounds"][asset]);
