@@ -409,6 +409,21 @@ function gasstationRandomizeOrb() {
 				document.getElementById("player").dataset.sequence = "player__anim_cin05_falling_idle";
 				document.getElementById("vesion_number").remove();
 			}, 5000);
+			setTimeout(() => {
+				playerData["locked"] = true;
+				document.getElementById("player").style.opacity = 0;
+				camData["locked"] = true;
+				camData["position"] = {x: 0, y: -35}
+				document.body.style.backgroundColor = "white";
+				document.getElementById("whiteout").style.display = "none";
+				setMessage("Thats it, demo has ended, this would have redirected to a site with extra info on it and stuff but I didn't have time to make that.");
+			}, 25000);
+			setTimeout(() => {
+				setMessage("So now you are trapped in this cold void forever, endlessly falling.");
+			}, 31000);
+			setTimeout(() => {
+				setMessage("");
+			}, 38000);
 		}
 		moveDist["x"] *= 50 * Clamp(dist/50, 0, 1);
 		moveDist["y"] *= 50 * Clamp(dist/50, 0, 1);
