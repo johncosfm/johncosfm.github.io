@@ -62,6 +62,12 @@ div#screenfade {
 	height: 100%;
 	opacity: 0;
 }
+div#whiteout {
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
 div#vesion_number {
 	width: calc(100% - 5px);
     font-size: 30px;
@@ -72,7 +78,7 @@ div#vesion_number {
 }
 div#controls {
 	top: 40%;
-    font-size: 20px;
+    font-size: 28px;
     color: white;
 	font-family: fnt_fallout;
     -webkit-text-stroke: 0.4px black;
@@ -123,7 +129,15 @@ div#controls {
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__base_blend__skated_frozen_lake.png);
 							top: -2000px; left: -2160px; -webkit-mask-image: url(assets/tex__env__base_blend__skated_frozen_lake__mask.png);
 							-webkit-mask-size: 16328px 7168px;"></div>
-							
+							S
+				<div style="
+					height: 896px;
+					width: 2041px;
+					background-image: url(assets/renders/isogame_worldmap.png);
+					transform: scale(8) translate(623px, 142px);
+					opacity: 0;
+					mix-blend-mode: multiply;
+				"></div>
 				<!-- main road -->
 				<div style="width: 1334px; height: 867px; background-image: url(assets/tex__env__road_01.png); top: 1181px; left: 8110px;"></div>
 				<div style="width: 1377px; height: 703px; background-image: url(assets/tex__env__road_02.png); top: 870px; left: 10643px;"></div>
@@ -143,7 +157,7 @@ div#controls {
 				<div style="height: 7168px; width: 16328px;	background-image: url(assets/tex__env__lightmap.png); top: -2000px; left: -2160px; background-size: 16328px 7168px; opacity: 0.4; mix-blend-mode: multiply;"></div>
 			</div>
 		</div>
-		<div id="shopfloor" style="display : none;">
+		<div id="shopfloor" style="display: none;">
 			<div id="gasstation_int_base" data-collision="env__gas_station_int_base"></div>
 			<div data-collision="env__gas_station_int_base_2"></div>
 			<div id="gasstation_int_layer1" data-collision="env__gas_station_int_layer1"></div>
@@ -153,22 +167,25 @@ div#controls {
 			<div id="door_01" data-sequence="env__door_01__anim_open_idle" data-origin_offsetx="91" data-origin_offsety="192" data-origin_x="540" data-origin_y="740" style="opacity: 0.6;"></div>
 			<div id="door_02" data-sequence="env__door_02__anim_closed_idle" data-origin_offsetx="91" data-origin_offsety="192" data-origin_x="53" data-origin_y="395" style="opacity: 0.6;"></div>
 		</div>
-		<div id="orbvoid" style="display : none;">
+		<div id="orbvoid" style="display: none;">
 			<div id="fakecloset" style="width: 315px; height: 374px; background-image: url(assets/tex__env__broomcloset_fake.png);" data-collision="env__gas_station_int_broomcloset_1"></div>
 			<div data-collision="env__gas_station_int_broomcloset_2"></div>
 			<div id="door_03" data-sequence="env__door_03__anim_open_idle" data-origin_offsetx="125" data-origin_offsety="195" data-origin_x="238" data-origin_y="313" style="opacity: 0.6;"></div>
 			<div id="orb_core" data-sequence="env__orb_core__anim_idle" data-origin_offsetx="256" data-origin_offsety="256" data-origin_x="-400" data-origin_y="-300" data-sorting_offset="1500" style="mix-blend-mode: screen; display: none;"></div>
 			<div id="orb_bloom" data-sequence="env__orb_bloom__anim_idle" data-origin_offsetx="256" data-origin_offsety="256" data-origin_x="-400" data-origin_y="-300" data-sorting_offset="3000" style="mix-blend-mode: screen; display: none; opacity: 0.1; transform: scale(5);"></div>
 		</div>
+		<div id="fallvoid" style="display: none;"></div>
 	</div></div>
+	<div id="vesion_number"><span>1.0.1 - GLD</span></div>
 	<div id="msg"></div>
-	<div id="vesion_number"><span>0.9.3 - WIP</span></div>
 	<div id="controls" style="display: none;">
 		CONTROLS</br>
 		middle mouse - drag camera</br>
+		scroll wheel - zoom</br>
 		WASD keys - manual walk</br>
 		left click - set waypoint/interact</br>
 	</div>
 	<div id="splashscreen"><span>loading...</span></div>
 	<div id="screenfade"></div>
+	<div id="whiteout"></div>
 </body>

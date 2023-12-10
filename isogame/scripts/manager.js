@@ -14,10 +14,12 @@ function StartGame() {
 function Precache() {
 	animPrecache();
 	carwreckPrecache();
+	soundPrecache();
+	gasstationPrecache();
 	
 	//we also need to scatter objects here instead of on game init
-	scatterInit();
-	document.getElementById("splashscreen").innerHTML = "<span>Click to start.</span>";
+	document.getElementById("splashscreen").innerHTML = "<span>Scattering assets...</span>";
+	setTimeout(() => {scatterInit(); document.getElementById("splashscreen").innerHTML = "<span>Click to start.</span>";}, 10);
 }
 
 function Init() {
@@ -49,9 +51,7 @@ function PerFrameThink(time) {
 }
 
 function testSkip() {
-	setWorld("overworld");
-	playerData["hasCrowbar"] = true;
-	gasstationData["doorLocked"] = false;
+	document.getElementById('door_02').dataset.sequence = 'env__door_02__anim_open'
 }
 
 //dont let the user break the carefully crafted listening experience with the media keys

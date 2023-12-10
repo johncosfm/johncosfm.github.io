@@ -148,6 +148,7 @@ function calcDist(x1, y1, x2, y2) {
 var audioElements = {};
 function PrecacheSound(asset) {
 	audioElements[asset] = new Audio(asset);
+	audioElements[asset].load();
 }
 
 function getRandomInt(min, max) {

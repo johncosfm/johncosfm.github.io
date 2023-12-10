@@ -386,7 +386,7 @@ var animData = { //big dict with all the info needed for animations
 		animEvents : {
 			0 : "camData['locked'] = true; playerData['locked'] = true; playSoundEvent('snd__player__anim_cin01__wake_action')",
 			30 : "playSoundEvent('snd__music__playgo')",
-			260 : "camData['locked'] = false; playerData['locked'] = false; playerData['showKeybindsTime'] = 7",
+			260 : "camData['locked'] = false; playerData['locked'] = false; playerData['showKeybindsTime'] = 15",
 		},
 	},
 	player__anim_cin01_wake_postidle : {
@@ -800,14 +800,14 @@ var animData = { //big dict with all the info needed for animations
 			120: {x : "008.44", y : "-05.25"},
 		},
 		animEvents : {
-			0: "playerData['locked'] = true; document.getElementById('player').dataset.sequence_direction = 'dir_135'; playSoundEvent('snd__scripted__headache')",
+			0: "playerData['locked'] = true; document.getElementById('player').dataset.sequence_direction = 'dir_135'; playSoundEvent('snd__scripted__headache'); playerData['hasCrowbar'] = false",
 			4: "gasstationData['orbvoidFlickerStrength'] = 1",
 			13: "gasstationData['orbvoidFlickerStrength'] = 0.5",
 			39: "gasstationData['orbvoidFlickerStrength'] = 1",
 			43: "gasstationData['orbvoidFlickerStrength'] = 0.1; gasstationData['orbvoidFlickerValue'] = 1.5; gasstationData['orbvoidFlickerNextSet'] = CurTime() + 0.2",
 			44: "gasstationStartVoidMode()",
 			59: "gasstationData['orbvoidFlickerStrength'] = 0; document.getElementById('orb_core').style.display = 'block'; document.getElementById('orb_bloom').style.display = 'block'",
-			26 : "playSoundEvent('snd__ambient__orbvoid_base_loop')",
+			26 : "playSoundEvent('snd__ambient__orbvoid_base_loop'); playSoundEvent('snd__ambient__orbvoid_orb_prox')",
 			119: "playerData['locked'] = false",
 		},
 	},
@@ -838,6 +838,39 @@ var animData = { //big dict with all the info needed for animations
 		},
 		rootMotion : false,
 		animEvents : {},
+	},
+	player__anim_cin05_falling_idle : {
+		textures: {
+			dir_000 : "assets/tex__player__anim_cin05_falling_idle.png",
+			dir_045 : "assets/tex__player__anim_cin05_falling_idle.png",
+			dir_090 : "assets/tex__player__anim_cin05_falling_idle.png",
+			dir_135 : "assets/tex__player__anim_cin05_falling_idle.png",
+			dir_180 : "assets/tex__player__anim_cin05_falling_idle.png",
+			dir_225 : "assets/tex__player__anim_cin05_falling_idle.png",
+			dir_270 : "assets/tex__player__anim_cin05_falling_idle.png",
+			dir_315 : "assets/tex__player__anim_cin05_falling_idle.png",
+		},
+		framerate : 10,
+		resolution : {
+			x : 256,
+			y : 256,
+		},
+		grid : {
+			x : 9,
+			y : 8,
+		},
+		length : 67,
+		endBehaviour : {
+			loop : true,
+			swap : false,
+		},
+		rootMotion : false,
+		animEvents : {
+			everyFrame : "camData['zoom'] -= 0.004; gasstationData['whiteoutOpacity'] = Clamp(gasstationData['whiteoutOpacity'] - 0.01, 0, 1);"
+			+"if (gasstationData['whiteoutOpacity'] == 0) {animData['player__anim_cin05_falling_idle']['animEvents']['everyFrame'] = animData['player__anim_cin05_falling_idle']['animEvents']['switchto']}",
+			
+			switchto : "if (gasstationData['whiteoutOpacity'] < 1) {camData['zoom'] -= 0.004;} else {animData['player__anim_cin05_falling_idle']['endBehaviour']['loop'] = false} gasstationData['whiteoutOpacity'] = Clamp(gasstationData['whiteoutOpacity'] + 0.01, 0, 1)"
+		},
 	},
 //CLOSEUP ANIMS
 	closeup__carwreck_trunk__anim_open_preidle : {
@@ -1599,7 +1632,9 @@ var animData = { //big dict with all the info needed for animations
 			swap : false,
 		},
 		rootMotion : false,
-		animEvents : {},
+		animEvents : {
+			everyFrame : "gasstationRandomizeOrb()",
+		},
 	},
 	env__orb_bloom__anim_idle : {
 		textures: {
@@ -1748,6 +1783,9 @@ function animUpdate() {
 			//animEvents
 			if (nextframe in animData[curSeq]["animEvents"]) {
 				eval(animData[curSeq]["animEvents"][nextframe]);
+			}
+			if ("everyFrame" in animData[curSeq]["animEvents"]) {
+				eval(animData[curSeq]["animEvents"]["everyFrame"]);
 			}
 			//update sequence
 			entData["entities"][elem[i].dataset.ent_index]["seqData"]["nextFrameTime"] = CurTime() + (1 / animData[curSeq]["framerate"]);

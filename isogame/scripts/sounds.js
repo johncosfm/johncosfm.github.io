@@ -40,6 +40,25 @@ var soundeventData = {
 		fadeIn : false,
 		loop : false,
 	},
+	snd__player_step_void : {
+		sounds : [
+			"assets/snd__player_step__void_01.mp3",
+			"assets/snd__player_step__void_02.mp3",
+			"assets/snd__player_step__void_03.mp3",
+			"assets/snd__player_step__void_04.mp3",
+			"assets/snd__player_step__void_05.mp3",
+			"assets/snd__player_step__void_06.mp3",
+			"assets/snd__player_step__void_07.mp3",
+			"assets/snd__player_step__void_08.mp3",
+			"assets/snd__player_step__void_09.mp3",
+		],
+		volume : 0.1,
+		noRepeat : true,
+		scaleByCameraZoom : false,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
 	snd__ambient_ext_base : {
 		sounds : [
 			"assets/snd__ambient__ext_base_loop.wav",
@@ -317,14 +336,57 @@ var soundeventData = {
 		fadeIn : 10,
 		loop : true,
 	},
+	snd__ambient__orbvoid_orb_prox : {
+		sounds : [
+			"assets/snd__ambient__orbvoid_orb_prox.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : false,
+		divideByCameraZoom : false,
+		fadeIn : 15,
+		loop : true,
+	},
+	snd__scripted__orbmerge : {
+		sounds : [
+			"assets/snd__scripted__orbmerge.wav",
+		],
+		volume : 1,
+		noRepeat : false,
+		scaleByCameraZoom : false,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
+	snd__scripted__falling_stinger : {
+		sounds : [
+			"assets/snd__scripted__falling_stinger.wav",
+		],
+		volume : 0.5,
+		noRepeat : false,
+		scaleByCameraZoom : false,
+		divideByCameraZoom : false,
+		fadeIn : false,
+		loop : false,
+	},
 }
 var soundInside = true;
+
+function soundPrecache() {
+	for (var sndevt in soundeventData) {
+		for (var asset in soundeventData[sndevt]["sounds"]) {
+			PrecacheSound(soundeventData[sndevt]["sounds"][asset]);
+		}
+	}
+}
+
 function soundInit() {
 	//startup game ambience
 	if (worldsData["currentWorld"] == "shopfloor") {
 		playSoundEvent("snd__ambient__int_base");
 		playSoundEvent("snd__ambient__int_music");
 	} else if (worldsData["currentWorld"] == "orbvoid") {
+	} else if (worldsData["currentWorld"] == "fallvoid") {
 	} else {
 		playSoundEvent("snd__ambient_ext_base");
 		playSoundEvent("snd__ambient_ext_wind");
@@ -340,6 +402,7 @@ function soundUpdate(deltaTime) {
 			soundeventData["snd__ambient__int_rand"]["next"] = CurTime() + getRandomInt(5,15);
 		}
 	} else if (worldsData["currentWorld"] == "orbvoid") {
+	} else if (worldsData["currentWorld"] == "fallvoid") {
 	} else {
 		if (!soundeventData["snd__ambient__ext_rand"]["next"]) {soundeventData["snd__ambient__ext_rand"]["next"] = CurTime() + getRandomInt(3,10);}
 		if (CurTime() > soundeventData["snd__ambient__ext_rand"]["next"]) {
@@ -366,6 +429,12 @@ function soundUpdate(deltaTime) {
 				volume *= soundeventData[sndevt]["fadeInValue"];
 			}
 			volume = Clamp(volume, 0, 1);
+			//hard coded volume adjustment for snd__ambient__orbvoid_orb_prox
+			if (sndevt == "snd__ambient__orbvoid_orb_prox") {
+				var dist = calcDist(GetEntData(document.getElementById("orb_core"))["origin"]["x"], GetEntData(document.getElementById("orb_core"))["origin"]["y"], GetEntData(document.getElementById("player"))["origin"]["x"], GetEntData(document.getElementById("player"))["origin"]["y"]);
+				volume *= Clamp(1 - (dist/800), 0, 1)
+			}
+			
 			if (!volume) {volume = 0;}
 			//default looping kinda sucks so we do it manually with a crossfade
 			if (soundeventData[sndevt]["activeHtmlAudio"] == 1) {
@@ -396,6 +465,7 @@ function soundUpdate(deltaTime) {
 
 function soundStop() {
 	for (var asset in audioElements) {
+		if (asset == "assets/snd__scripted__orbmerge.wav") {continue;} //lol
 		audioElements[asset].pause();
 		audioElements[asset].currentTime = 0;
 	}
@@ -417,7 +487,13 @@ function playSoundEvent(sndevt) {
 		sndevt = "snd__player_step_tile";
 	}
 	if (sndevt == "snd__player_step" && worldsData["currentWorld"] == "orbvoid") {
-		sndevt = "snd__player_step_tile";
+		if (gasstationData["playedOrbMergeSound"]) {
+			return;
+		} else if (gasstationData["voidmode"]) {
+			sndevt = "snd__player_step_void";
+		} else {
+			sndevt = "snd__player_step_tile";
+		}
 	}
 	if (sndevt in soundeventData) {
 		var volume = soundeventData[sndevt]["volume"];
@@ -438,7 +514,8 @@ function playSoundEvent(sndevt) {
 			volume /= Clamp(camData["zoom"] * Clamp(camData["zoom"], 0, 1), 0.1, 2);
 		}
 		if (soundeventData[sndevt]["loop"]) {
-			soundeventData[sndevt]["htmlAudio"] = new Audio(soundeventData[sndevt]["sounds"][sndindex]);
+			if (!(soundeventData[sndevt]["sounds"][sndindex] in audioElements)) {PrecacheSound(soundeventData[sndevt]["sounds"][sndindex]);}
+			soundeventData[sndevt]["htmlAudio"] = audioElements[soundeventData[sndevt]["sounds"][sndindex]];
 			soundeventData[sndevt]["htmlAudio2"] = new Audio(soundeventData[sndevt]["sounds"][sndindex]);
 			if (soundeventData[sndevt]["fadeIn"]) {
 				soundeventData[sndevt]["htmlAudio"].volume = 0;

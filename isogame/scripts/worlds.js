@@ -43,6 +43,18 @@ var worldsData = {
 				zoom : 3.5,
 			},
 		},
+		fallvoid : {
+			playerStart : {
+				x : 0,
+				y : 0,
+				dir : "dir_000",
+			},
+			cameraStart : {
+				x : 0,
+				y : 0,
+				zoom : 1,
+			},
+		},
 	},
 }
 

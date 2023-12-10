@@ -26,6 +26,8 @@ var gasstationData = {
 	orbvoidFlickerValue: 0,
 	orbvoidFlickerNextSet: 0,
 	voidmode : false,
+	playedOrbMergeSound : false,
+	whiteoutOpacity : 1,
 }
 
 function gasstationPrecache() {
@@ -153,11 +155,11 @@ function gasstationUpdate(deltaTime) {
 	
 	if (!gasstationData["messages"]["sawBlood"] && traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_base"], "env__gas_station_int_trigger_blood")) {
 		gasstationData["messages"]["sawBlood"] = true;
-/* 		var message = "That's a lot of blood. I don't like this.";
+ 		var message = "All this blood isn't a good sign.";
 		setMessage(message);
 		setTimeout(() => {if (curMsg == message) {
 			setMessage("");
-		}}, 4000); */
+		}}, 4000);
 	}
 	if(gasstationData["messages"]["sawBlood"] && !gasstationData["messages"]["sawDrag"]
 	&& traceEntHull(GetEntData(document.getElementById("player"))["origin"], gasstationData["gasstation_int_base"], "env__gas_station_int_trigger_drag")) {
@@ -194,6 +196,8 @@ function gasstationUpdate(deltaTime) {
 			playerData["lockNewGoals"] = false;
 		}
 	}
+	
+	document.getElementById("whiteout").style.opacity = gasstationData["whiteoutOpacity"];
 }
 
 function gasstationInputMouseDown(e) {
@@ -368,4 +372,51 @@ function gasstationStartVoidMode() {
 	gasstationData["voidmode"] = true;
 	document.getElementById("fakecloset").style.display = "none";
 	document.getElementById("door_03").style.display = "none";
+}
+
+function gasstationRandomizeOrb() {
+	if (worldsData["currentWorld"] != "orbvoid") {return;}
+	//the silly orb jitters around
+	var theOrbGrows = getRandomInt(95,105)/100;
+	var dist = calcDist(GetEntData(document.getElementById("orb_core"))["origin"]["x"], GetEntData(document.getElementById("orb_core"))["origin"]["y"], GetEntData(document.getElementById("player"))["origin"]["x"], GetEntData(document.getElementById("player"))["origin"]["y"]);
+	document.getElementById("orb_core").style.transform = "scale(" + (theOrbGrows + (Clamp(1 - (dist/800), 0, 1) * 0.6) + (Clamp(1 - (dist/200), 0, 1) * 8)) + ")";
+	document.getElementById("orb_bloom").style.opacity = theOrbGrows * 0.1;
+	//and it also chases you around just for fun, especially when you get close to it
+	var moveDist = calcVectorRotate(0, 1, calcAngle(GetEntData(document.getElementById("orb_core"))["origin"]["x"], GetEntData(document.getElementById("orb_core"))["origin"]["y"], GetEntData(document.getElementById("player"))["origin"]["x"], GetEntData(document.getElementById("player"))["origin"]["y"]));
+	if (dist > 200) {
+		moveDist["x"] *= Clamp(1 - (dist/500), 0, 1) * Clamp(1 - (dist/500), 0, 1) * 5;
+		moveDist["y"] *= Clamp(1 - (dist/500), 0, 1) * Clamp(1 - (dist/500), 0, 1) * 5;
+	} else {
+		if (!gasstationData["playedOrbMergeSound"]) {
+			playSoundEvent("snd__scripted__orbmerge");
+			gasstationData["playedOrbMergeSound"] = true;
+			setTimeout(() => {
+				soundStop();
+			}, 600);
+			setTimeout(() => {
+				playerData["locked"] = true;
+				document.getElementById("whiteout").style.display = "block";
+				worldsData["goalWorld"] = "fallvoid";
+			}, 200);
+			setTimeout(() => {
+				playerData["locked"] = true;
+				GetEntData(document.getElementById("player"))["origin"] = {x: 0, y: 0};
+				UpdateEntOrigin(document.getElementById("player"));
+				playSoundEvent("snd__scripted__falling_stinger");
+				camData["locked"] = true;
+				camData["position"] = {x: 0, y: -35}
+				document.body.style.backgroundColor = "white";
+				document.getElementById("player").dataset.sequence = "player__anim_cin05_falling_idle";
+				document.getElementById("vesion_number").remove();
+			}, 5000);
+		}
+		moveDist["x"] *= 50 * Clamp(dist/50, 0, 1);
+		moveDist["y"] *= 50 * Clamp(dist/50, 0, 1);
+	}
+	GetEntData(document.getElementById("orb_core"))["origin"]["x"] += moveDist["x"];
+	GetEntData(document.getElementById("orb_core"))["origin"]["y"] += moveDist["y"];
+	UpdateEntOrigin(document.getElementById("orb_core"));
+	GetEntData(document.getElementById("orb_bloom"))["origin"]["x"] += moveDist["x"];
+	GetEntData(document.getElementById("orb_bloom"))["origin"]["y"] += moveDist["y"];
+	UpdateEntOrigin(document.getElementById("orb_bloom"));
 }

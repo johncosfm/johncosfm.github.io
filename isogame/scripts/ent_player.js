@@ -238,6 +238,12 @@ function playerUpdate(deltaTime) {
 		}
 	}
 	
+	//if we arent using goal locomotion then manually swap in the anim and skip the slow windup
+	if (newSeq == "player__anim_base_walkstart" && entData["entities"][player.dataset.ent_index]["seqData"]["curSeq"] != player.dataset.sequence) {
+		entData["entities"][player.dataset.ent_index]["seqData"]["curSeq"] = player.dataset.sequence;
+		entData["entities"][player.dataset.ent_index]["seqData"]["nextFrameNum"] = 4;
+	}
+	
 	//update keybind text
 	playerData["showKeybindsTime"] = Clamp(playerData["showKeybindsTime"] - deltaTime, 0, 100);
 	document.getElementById("controls").style.opacity = Math.round(Clamp(playerData["showKeybindsTime"], 0, 1) * 10) / 10;

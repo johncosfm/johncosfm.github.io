@@ -73,7 +73,7 @@ function camInputZoom(e) {
 	if (camData["holdingCtrl"]) {return;}
 	if (camData["locked"]) {return;}
 	
-	var newZoom = Clamp(camData["zoom"] + (-e.deltaY / 1000) * camData["zoom"], 0.3, 15);
+	var newZoom = Clamp(camData["zoom"] + (-e.deltaY / 1000) * camData["zoom"], 0.5, 4);
 	//zoom should center around the cursor, so update the cam coords
 	var cursorPosCustom = cursorPos;
 	if (camData["drag"] && "dragData" in camData) {
