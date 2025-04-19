@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>boxrocket portfolio</title>
+<link rel="stylesheet" href="shared/global_style.css">
+<body>
+	<header>
+		<img src="assets/tex_boxrocketlogo.png">
+		<h1>boxrockets grand list of technologies</h1>
+	</header>
+	<table>
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>Animgraph 3</h2>
+			</td>
+			<td class = "right header">
+				<p>The current state of animgraph in s&box isn't great, animgraph 2 is still to my knowledge a ways off, and I needed animgraph for some projects. So I'm in the process of making my own version of animgraph.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/animgraph_3__live_editing.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Custom node editor, live editing, ect.</h1>
+				<p>(User interface isn't done yet, it's missing some docks)</p>
+				<p>The entire animation system here is custom, as is the editor. I've split it into 2 main parts, an <code>Animgraph</code> class that represents the file and an <code>Animator</code> class that uses the file to animate
+					a <code>SceneModel</code> or <code>SkinnedMeshComponent</code>. These seperations allow for both the file and the model to be changed while the animgraph is running without affecting the state of the graph, so
+					the animgraph can run at all times while in the editor and respond instantly to changes. Additionally the vmdl can be swapped out at any time without disrupting the graph (assuming the models have comparable animations
+					and whatnot).
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/animgraph_3__state_machines.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>State Machines, decent system for conditions</h1>
+				<p>(Ignore that none of the GUI elements for the states and transitions are rendering properly)</p>
+				<p>None of the nodes are hard coded, they are declared with attributes and loaded dynamically when the user right clicks to select a node. This means adding new nodes requires very little effort. The state machine nodes also
+					demonstrate the ability to define custom editors (activated by double clicking the node) for specific node classes. These editors are defined as a <code>Widget</code> with an attribute that declares the editor as belonging to
+					a specific node.
+				</p>
+			</td>
+		</tr>
+	
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>Untitled movement shooter</h2>
+			</td>
+			<td class = "right header">
+				<p>Recent project meant to get some of that play fund money, very early in development.
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/skull_drill__kick.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Kick</h1>
+				<p>Nothing too special, the knockback force is code I wrote back in like 2020 for Vance. All that kicking of walls gives ample time for close inspection of the walls, though, which I feel look quite stylish.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/skull_drill__movement.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>View bob</h1>
+				<p>The general vibe I want for the project is 'bull in a china shop'. The player should be fast and powerful but feel heavy, and as such I opted for fairly extreme camera effects. The view bob here is fully
+					procedural, making some effort to copy how it looks in mirrors edge.
+				</p>
+				<p>There's also a slide in there, inspired by the Vance slide. Was a lot easier to implement using my movement code than it was with the Valve code.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/skull_drill__self_shadowing.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>World Shader</h1>
+				<p>I wanted the visuals to appear very dark, slightly 2000s, and with as much grit as possible. To that end I created a shader with point sampling, extreme application of the ambient occlusion texture, a custom
+					lighting model with phong shading, and self-shadowing.
+				</p>
+				<img src="assets/skull_drill__shader_02.png"/>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/skull_drill__fake_ao.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Fake AO Strip Application Tool</h1>
+				<p>On top of the very strong local ambient occlusion in the textures I wanted some nice strong ambient occlusion to tie the faces together. The original plan was to use the SSAO implementation that already exists
+					in s&box but at extreme strengths it's limations were a bit too obvious, so I opted for fake ambient occlusion using strips of geo with a custom shader. I also made a script to apply them to scene meshes for the
+					sake of convenience.
+				</p>
+				<img src="assets/skull_drill__corner.png"/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>Point And Click Adventure Demo</h2>
+			</td>
+			<td class = "right header">
+				<p>The end result of playing Riven and thinking it looks pretty cool, a set of graphical effects meant to emulate prerendered graphics. Also a winnder of the s&box tech jam. I really enjoy projects like these that are just
+				an endless series of cool graphical challenges.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/pacad__prerender_shaders.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Prerender shaders and rendering</h1>
+				<p>Some would say the most important part, the game is rendered at a low resolution once each time the camera movees and optionally at 15 frames per second. The first render is used as the static view for each scene and the second
+					is used for the FMV elements. During the render, the static render is treated to slightly inaccurate (intentionally) ACES color grading, bit reduction, and Bayer dithering. The FMV render is treated to the same ACES color grading
+					but with some distortion in the colors to give the classic greenish look, slight bit reduction, a blocky compression effect, and a copy of the last frame is used to apply an additional layer of fake video compression. These
+					textures are rendered to the screen with an additional set of shaders that handle the cropping for FMV videos as well as the transition effects with switching angles. (colors in the image have been boosted so that the effects are more
+					visible)
+				</p>
+				<img style="height:460px" src="assets/pacad__prerender_shaders_boosted.png"/>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/pacad__bounds_detection_01.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Bounds detection</h1>
+				<p>To acheive the cropped effect for FMV elements screenspace bounds must be determined for each animated element. The tricky part is that the bounds need to be cropped closely to exclue anything not visually moving on screen, so
+					traces are required to ensure the bounds dont include parts of the object that are behind walls. Initial implementations were using several thousand traces, the final implentation only uses up to 240 something. I'm sure this
+					could be optimized further but due to the nature of the game a 2ms spike when animated objects start moving isn't noticable.
+				</p>
+				<img style="height:460px" src="assets/pacad__bounds_detection.png"/>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/pacad__bounds_detection_02.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Bounds detection and prerender shaders in action</h1>
+				<p>Additional FMV bounds are added here to ensure the bloom effect doesn't get clipped off on the edge of the door, and are also placed anyhwhere with moving shadows.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/pacad__spline_chain_and_pulley.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Spline chain and pulley</h1>
+				<p>From the first iteration of pacad, a chain that procedurally follows a spline path and a pulley that procedurally rotates to match the changing length of the spline.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/pacad__unused_hologram_effect.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Kinect hologram effect</h1>
+				<p>Another leftover from the first iteration, and an effect I really should have used for the ending of pacad. A video containing color depth and mask information is fed into a shader. Seems like a nice effect and wasn't all that
+					hard to set up, makes me wonder why games don't do this sort of thing from time to time. Pretty cheap to render too.
+				</p>
+				<img style="height:480px" src="assets/pacad__hologram_effect.png"/>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/pacad__water_ripples.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Water ripple effect</h1>
+				<p>To be honest pacad and its first iteration were just excuses to make a bunch of cool shader effects and scenebuilds.</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>Crimson County Forest Service</h2>
+			</td>
+			<td class = "right header">
+				<p>Lethal company clone but cool, a full scale project</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/cryptid__pixel_perfect_decals.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Generic FPS gameplay systems</h1>
+				<p>This whole project is coded in such a way that all of its core player systems can be repurposed for other games, such as the previously mentioned untitled movement shooter.</p>
+				<h1>HL1 Software rendering</h1>
+				<p>The graphical effects and shaders here are meant to mimic Half Life 1 in software rendering mode. The effects include point sampling, a custom lighting model on world geometry, and bit reduction across the entire screen.
+					Dynamic objects have slight vertex snapping and are lit uniformally from a single point in an attempt to replicate the entity lighting in HL1. Decals are aligned to the underlying surace in such a way that they align
+					to the pixels of the surface, an effect which I found to be one of the cooler parts of the software rendering.
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/cryptid__pose_correction.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Pose correction tool</h1>
+				<p>I had a bunch of mocap that needs to hit specific poses to be used in the game so I made a little tool to do that. s&box has a really nice api so I find myself using it for most issues that I would previously have
+					solved using blender scripts.
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/cryptid__dlights.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Lightmap resolution lights</h1>
+				<p>HL1 renders dynamic lights to the lightmap (I think? Idk what it does exactly) so they appear in game at a noticably lower resolution. To acheive this I feed in dynamic lights to the shader and render them seperately
+					from normal lights, linearly interpolating between 8 positions to get the low res interpolated texture effect.
+				</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>Image Sequence Renderer Tool</h2>
+			</td>
+			<td class = "right header">
+				<p>Nothing too fancy but I needed a tool to render acene to image sequences with nice consistent framerates so I made one.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/ris__render.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Renders Images</h1>
+				<p>It'd render video but the video writer class in s&box has its constructor marked as internal lol</p>
+				<p>This plus movie maker might be pretty nice.</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>Concert (midi operated band)</h2>
+			</td>
+			<td class = "right header">
+				<p>Large set of procedural systems to bridge the gap between motion capture from a guy that doesn't know how to play any instruments and a full band performance. Will end up rendered out and uploaded to youtube eventualy.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/concert__midi_drums.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Procedural drums</h1>
+				<p>I haven't a clue how to play the drums, so the goal here is to start with mocap of me not playing the drums and then apply procedural stuff until it looks like I can play the drums. The system is fed midi notes, then it has
+					to figure out which stick it should use for each note (this is easier said than done) and procedurally animate the drum sticks to hit them.
+				</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>SBFM</h2>
+			<td class = "right header">
+				<p>A perhaps misguided attempt to recreate s2fm 1:1 in s&box</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/sbfm__editor.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>User interface</h1>
+				<p>I've come around to movie maker and have no real plans to finish this, but in making it I learned enough about the editor stuff to be able to easily make tools in s&box, which has proven useful on many an occasion. I went
+					from doing AI logic in animgraph to writing vscript like 4 years ago and have since developed that thing programmers get where they focus way too much time and energy on user experience for tools that only they are going
+					to ever touch.
+				</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>s&box (c#)</h1>
+				<h2>Untitled bioshock ripoff</h2>
+			</td>
+			<td class = "right header">
+				<p>There was a while where I didn't have any good ideas so I did this instead, acted as a good testing ground for various tech, most of which isn't all that visually interesting.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/biofp__npc_melee.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Npc weapon systems</h1>
+				<p>Another thing that's more complicated than it looks, this game gave each npc like 5 different places to store weapons, they could dual wield, ect. so it ended up with a fairly in depth system to keep track of their guns and
+					bludgeons and to spawn them with a reasonable loadout.
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/biofp__steal_pistol.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>You could also steal holstered weapons</h1>
+				<p>Kinda cool feature idk</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/biofp__cigarette_shader.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Cigarette shader</h1>
+				<p>This whole project is just a series of cool fairly unrelated little bits of tech. Kinda all it was supposed to be really</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/biofp__cigarette_and_window.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Ocean window</h1>
+				<p>Based vaugely on the glass shader but I replaced most of it, it renders the view from a second camera, ensuring skybox stuff and game stuff don't get all mixed up. Not sure it was worth the performance cost but at the same time
+					it's no worse than something like planar reflections.
+				</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>Half Life: Alyx (lua)</h1>
+				<h2>Anticitizen</h2>
+			</td>
+			<td class = "right header">
+				<p>The best Half Life: Alyx mod never made, a tour de force of vscript, a project with a singular goal of being extremely ambitious and delivering on it. Met its end when all the level designers disappeared. Might port the whole thing to s&box at some point.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/anticit__ai_tables.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Custom NPCs</h1>
+				<p>With the impression that the existing HLA npcs don't move around enough and are kind of boring, and with the general annoyance at needing to constantly work around the behaviours of the existing npcs, I figured it would be easier
+					just to make new npcs from scratch. These are those npcs, sporting custom AI logic using a system similar to the schedules used by valve, a reimplementation of the hl2 sentences system, dynamic targeting with accuracy and specific
+					targeting profiles per npcs (targeting profiles controlled aiming position based on range and enemy health), lookat with various points of interest and categories and cooldowns and whatnot, targeting for grenades to hit groups of
+					enemies, ruidimentary squad tactics, really just as much stuff as I could think of. I spent like 2 years doing nothing but just adding random stuff to them. As is typical for projects fueled by endless ambition and inability to
+					settle for less than perfection they still aren't finished yet.
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/anticit__custom_weaponry.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Custom weapons</h1>
+				<p>Same as the npcs really, ironically vscript shows its limitations much more dramatically with the weaponry than it did with the npcs, all the handposes are a huge pain to deal with in vscript. I can imagine acheiving the same
+					result in like 3 days in s&box.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/anticit__death_anims.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Injury config</h1>
+				<p>At some point the npcs needed fully custom hit detection, I forget why. When I did it I figured it'd also be cool to add a bunch of extra hitboxes that do things like blowing up their radios. Just for fun that reduces their
+					comunication range to 128 units.
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/anticit__dual_wield.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Dual wielding</h1>
+				<p>We cut this but it's kinda cool. As a result of how Half Life: Alyx deals with animgraph tick rates it was way harder to implement than it looks.</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>HTML (javascript)</h1>
+				<h2>Isogame</h2>
+			</td>
+			<td class = "right header">
+				<p>Browser game, based vaugely on the style of Fallout 1. No libraries or anything just javascript and divs. HTML is suprisingly nice to work with as a 2D game engine.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/isogame__gameplay.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Isometric game</h1>
+				<p>Rendering out all the animations for this wasn't fun, if I were to do it again I'd do it in s&box and render all the sprites at runtime.</p>
+				<p><a href="https://johncosfm.github.io/isogame/isogame.html">https://johncosfm.github.io/isogame/isogame.html</a></p>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "left">
+				<h1>Source SDK 2016 (c++)</h1>
+				<h2>Vance</h2>
+			</td>
+			<td class = "right header">
+				<p>Zombified HL2 mod I worked on for a few years, then it died for a few years, then it came back and I worked on it for a few more years, then it died again, then it got taken over and disfigured. Storied history of drama and betrayal.</p>
+			</td>
+		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/vance__demo.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Assorted Gameplay Mechanics</h1>
+				<P>Another mod that I worked on for a long while. Was pretty cool other than how it self destructed every like month.</p>
+				<p>Specific things I worked on here include:<br/>
+				- Significant polish on slide mechanic<br/>
+				- Quick grenade throw<br/>
+				- Significan polish on health stim and tourniquets<br/>
+				- Kick mechanic<br/>
+				- Vaulting plus polish on other types of climbing<br/>
+				- Viewmodel offsets for various actions<br/>
+				- Bunch of other assorted fixes and polish<br/>
+				</p>
+			</td>
+		</tr>
+	</table>
+</body>

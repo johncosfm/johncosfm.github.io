@@ -1,0 +1,139 @@
+:root {
+	/* colors */
+	--color_dark_grey: #242424;
+	--color_grey: #4c4b49;
+	--color_tanwhite: #f4f4ef;
+	
+	font-family: "bahnschrift";
+}
+@font-face {
+	font-family: "bahnschrift";
+	src: url("../assets/fnt_bahnschrift.ttf");
+}
+
+body {
+	margin: 0;
+	background-color: var(--color_tanwhite);
+}
+
+header {
+	background-color: var(--color_dark_grey);
+	width: 100%;
+	height: 75px;
+	overflow: clip;
+}
+header>img {
+	height: 50px;
+	margin-top: 10px;
+	margin-left: 15px;
+	border-radius: 100%;
+}
+header>h1 {
+	display: inline-block;
+	color: white;
+	margin: 0;
+	margin-left: 10px;
+	height: 95%;
+	vertical-align: middle;
+	font-weight: lighter;
+	font-size: 1.5em;
+}
+header>a {
+	height: 75px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 210px;
+}
+
+table, tr, td {
+	table-layout: fixed;
+    border: none;
+	padding: 0;
+    border-spacing: 0;
+}
+
+td.left {
+	background-color: var(--color_grey);
+	width: 55%;
+	color: white;
+}
+td.right {
+	background-color: var(--color_tanwhite);
+	width: 45%;
+}
+
+td.left>h1 {
+	font-size: 20px;
+	font-weight: normal;
+	margin-left: 70px;
+	margin-top: 0;
+	padding-top: 70px;
+	margin-bottom: 0;
+}
+td.left>h2 {
+	font-weight: 100;
+	margin-top: 0;
+	margin-left: 67px;
+	font-size: 50px;
+	margin-bottom: 0;
+}
+td.left>video {
+	margin-left: 70px;
+	width: calc(100% - 140px);
+	margin-bottom: 0;
+}
+
+td.right {
+	vertical-align: top;
+}
+td.right.header {
+	vertical-align: bottom;
+}
+td.right>h1 {
+	margin-left: 50px;
+	font-weight: lighter;
+	margin-top: 50px;
+	margin-bottom: 0;
+}
+td.right>img {
+	margin-top: 10px;
+	margin-left: 50px;
+	height: 550px;
+}
+td.right>h2 {
+	margin-bottom: -20px;
+	margin-top: 30px;
+	margin-left: 30px;
+	color: grey;
+	font-style: italic;
+	font-weight: normal;
+}
+td.right>p {
+	margin-left: 50px;
+	margin-right: 70px;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+td.right>*>code {
+	font-family: bahnschrift;
+	padding: 1px 3px;
+	background-color: var(--color_grey);
+	color: white;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: lighter;
+	margin: 3px;
+}
+td.right>div.codebox {
+	background-color: var(--color_grey);
+	padding: 10px 15px;
+	margin-left: 40px;
+	width: calc(100% - 100px);
+	margin-top: 10px;
+	border-radius: 10px;
+}
+td.right>div.codebox>code {
+	padding: 0;
+	margin: 0;
+}
