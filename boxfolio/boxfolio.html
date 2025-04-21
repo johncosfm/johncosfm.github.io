@@ -49,6 +49,20 @@
 				</p>
 			</td>
 		</tr>
+		<tr>
+			<td class = "left">
+				<video controls>
+					<source src="assets/animgraph_3__parameters.mp4" type="video/mp4">
+				</video>
+			</td>
+			<td class = "right">
+				<h1>Parameter classes</h1>
+				<p>I've always found it to be an annoyance that there isn't really any good way to coordinate parameters between animgraph and code, it always felt a bit messy to just hope that whoever is setting up the animgraph gets the names
+					correct. To fix this I've created a system in which the <code>Animator</code> can create an instance of a class, and anything marked with <code>[Property]</code> inside the class is exposed to animgraph as a parameter. Then
+					in code you can simply edit values in the instance directly instead of trying to set them by name.
+				</p>
+			</td>
+		</tr>
 	
 		<tr>
 			<td class = "left">
