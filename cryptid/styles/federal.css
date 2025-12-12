@@ -7,9 +7,13 @@ body {
 center.content {
 	width: 850px;
 }
+center.content>p {
+	font-size: 14px;
+	margin: 2px 0;
+}
 
 div.federal_header {
-	margin-top: 40px;
+	margin-top: 15px;
 	padding-top: 2px;
 	height: 39px;
 	display: flex;
