@@ -1,0 +1,110 @@
+body {
+	background-color: #fcdec7;
+	display: flex;
+	justify-content: center;
+}
+
+center.content {
+	width: 850px;
+}
+
+div.federal_header {
+	margin-top: 40px;
+	padding-top: 2px;
+	height: 39px;
+	display: flex;
+	justify-content: center;
+	background-color: black;
+}
+div.federal_header>img {
+	width: 70px;
+	height: 90px;
+	vertical-align: top;
+	z-index: 20;
+	-webkit-user-select: none;
+	user-select: none;
+	filter: drop-shadow(5px 2px 5px black);
+}
+div.federal_header>label {
+	font-size: 35px;
+	color: white;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-right: 70px;
+	filter: blur(0.5px);
+}
+
+div.county_header {
+	background-image: url("../assets/img_county_bg.png");
+	background-position: center;
+	background-size: cover;
+	height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+div.county_header>label {
+	margin-top: -15px;
+	font-family: bahnschrift;
+	font-size: 40px;
+	color: white;
+	text-shadow: 0 0 50px #100000;
+	filter: blur(0.5px);
+}
+div.county_header>label#name {
+	font-size: 60px;
+}
+
+div.county_photos {
+	margin: 0 15px;
+	display: flex;
+	justify-content: space-between;
+	filter: drop-shadow(5px 5px 3px black);
+}
+div.county_photos>img {
+	margin: 10px 30px;
+	flex-grow: 1;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+@keyframes visitor_marquee {
+	0%, 10% {left: 00px;}
+	80%, 100% {left: -310px;}
+}
+div.info_block {
+	display: flex;
+}
+div.info_block>h1 {
+	margin: 0 12px;
+	text-align: start;
+	font-family: bahnschrift;
+	font-size: 20px;
+	font-style: italic;
+	min-width: 230px;
+	max-width: 230px;
+	overflow: hidden;
+}
+div.info_block>h1>a {
+	text-decoration: none;
+	text-wrap: nowrap;
+	position: relative;
+	animation-duration: 8s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+div.info_block>h1>a#visitor {
+	animation-name: visitor_marquee;
+}
+div.info_block>p {
+	font-size: 18px;
+	margin: 3px 12px;
+	text-align: start;
+}
+div.info_block>p>label {
+	font-size: 12px;
+}
+div.info_block>p>br {
+	-webkit-user-select: none;
+	user-select: none;
+}
